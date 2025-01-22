@@ -1,0 +1,66 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CSS value fallback 1`] = `
+"<style data-precedence="1" data-href="x-3snbh6it-1 x-ggil3886-1">
+  .x-3snbh6it-1 {
+    color: black
+  }
+
+  .x-ggil3886-1 {
+    color: color: rgba(0, 0, 0, 0.9)
+  }
+</style>
+<style data-precedence="2" data-href="x-ggil3886-2">
+  .x-ggil3886-2 {
+    color: color: rgba(0, 0, 0, 0.9)
+  }
+</style>
+<div><span class="x-3snbh6it-1 x-ggil3886-2"></span><span class="x-ggil3886-1"></span></div>"
+`;
+
+exports[`no footgun 1`] = `
+"<style data-precedence="1" data-href="x-9p6p2vms-1 x-16x8ijtr-1">
+  .x-9p6p2vms-1 {
+    &:first-child:after {
+      content: "First"
+    }
+  }
+
+  .x-16x8ijtr-1 {
+    &:last-child:after {
+      content: "Last"
+    }
+  }
+</style>
+<style data-precedence="2" data-href="x-16x8ijtr-2 x-9p6p2vms-2">
+  .x-16x8ijtr-2 {
+    &:last-child:after {
+      content: "Last"
+    }
+  }
+
+  .x-9p6p2vms-2 {
+    &:first-child:after {
+      content: "First"
+    }
+  }
+</style>
+<div><span class="x-9p6p2vms-1 x-16x8ijtr-2"></span><span class="x-16x8ijtr-1 x-9p6p2vms-2"></span></div>"
+`;
+
+exports[`style deduplication 1`] = `
+"<style data-precedence="1" data-href="x-157mpepm-1 x-39u6vegt-1 x-38xvzlwd-1">
+  .x-157mpepm-1 {
+    color: red
+  }
+
+  .x-39u6vegt-1 {
+    background: blue
+  }
+
+  .x-38xvzlwd-1 {
+    color: yellow
+  }
+</style>
+<div><button class="x-157mpepm-1 x-39u6vegt-1"></button><a class="x-38xvzlwd-1 x-39u6vegt-1"></a></div>"
+`;

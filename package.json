@@ -1,0 +1,65 @@
+{
+  "name": "matcha-css",
+  "version": "0.1.0",
+  "description": "Styling library for React 19.",
+  "packageManager": "pnpm@9.15.4",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "format": "prettier . --write",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsup src/index.ts --sourcemap --format esm && tsc --project tsconfig.build.json",
+    "prepublishOnly": "pnpm build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jas-chen/matcha-css.git"
+  },
+  "keywords": [
+    "react",
+    "react 19",
+    "css",
+    "css-in-js",
+    "style",
+    "styled",
+    "styling",
+    "server components",
+    "rsc",
+    "streaming",
+    "atomic"
+  ],
+  "author": "Jas Chen <jaschen.tw@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jas-chen/matcha-css/issues"
+  },
+  "homepage": "https://github.com/jas-chen/matcha-css#readme",
+  "devDependencies": {
+    "@sindresorhus/fnv1a": "^3.1.0",
+    "@types/node": "^22.10.7",
+    "@types/pretty": "^2.0.3",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "prettier": "3.4.2",
+    "pretty": "^2.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.3"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  }
+}
