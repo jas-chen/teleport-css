@@ -28,7 +28,7 @@ function hashFn(value: string) {
   return fnv1a(value, { size: 64 }).toString(36).slice(0, 8);
 }
 
-const { styled, keyframes } = create({
+const { styled, keyframes, cloneAs } = create({
   hashFn,
   context: {
     breakpoints: {
@@ -50,7 +50,7 @@ const Button = styled('button', (context) => ({
   },
 }));
 
-const ButtonAsLink = Button.as('a');
+const ButtonAsLink = cloneAs(Button, 'a');
 
 function App() {
   return (

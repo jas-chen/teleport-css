@@ -21,6 +21,7 @@ const errorMsg =
 export function styled<Component extends ElementType, Context>(
   config: Config<Context>,
   BaseComponent: Component & {
+    $getCss?: GetCss<Context>;
     $getStyles?: () => Readonly<ProcessedStyle[]>;
     $styleCache?: Readonly<ProcessedStyle[]>;
   },
@@ -28,98 +29,89 @@ export function styled<Component extends ElementType, Context>(
 ) {
   const isStyledComponent = Object.hasOwn(BaseComponent, hasCssPropKey);
 
-  const StyledComponent = Object.assign(
-    (
-      props: ComponentProps<Component> & {
-        css?: GetCss<Context>;
-      },
-    ): ReactElement => {
-      if (!isStyledComponent) {
-        const { className, css, ...restProps } = props;
+  const StyledComponent = (
+    props: ComponentProps<Component> & {
+      css?: GetCss<Context>;
+    },
+  ): ReactElement => {
+    if (!isStyledComponent) {
+      const { className, css, ...restProps } = props;
 
-        const styles = (
-          StyledComponent as typeof StyledComponent & {
-            $getStyles?: () => Readonly<ProcessedStyle[]>;
-          }
-        ).$getStyles!();
-
-        const [styleElement, styleClassName] = renderProcessedStyle(
-          config,
-          css ? [...styles, ...toStyles(config, css)] : styles,
-        );
-
-        return (
-          <>
-            {styleElement}
-            {/* @ts-expect-error props type */}
-            <BaseComponent
-              className={
-                className ? `${styleClassName} ${className}` : styleClassName
-              }
-              {...restProps}
-            />
-          </>
-        );
-      } else {
-        const { css, ...restProps } = props;
-
-        const { className } = restProps;
-
-        if (
-          typeof className === 'string' &&
-          (className as string)
-            .split(ws)
-            .some((c) => c.startsWith(getPrefix(config)))
-        ) {
-          if (process.env.NODE_ENV !== 'production') {
-            throw new Error(errorMsg);
-          } else {
-            console.error(errorMsg);
-          }
+      const styles = (
+        StyledComponent as typeof StyledComponent & {
+          $getStyles?: () => Readonly<ProcessedStyle[]>;
         }
+      ).$getStyles!();
 
-        return (
-          <>
-            {/* @ts-expect-error props type */}
-            <BaseComponent
-              css={
-                css
-                  ? (context: Context) => {
-                      const baseCss = getCss(context);
-                      const overrideCss = css(context);
+      const [styleElement, styleClassName] = renderProcessedStyle(
+        config,
+        css ? [...styles, ...toStyles(config, css)] : styles,
+      );
 
-                      // merge baseCss and overrideCss
-                      if (
-                        Array.isArray(baseCss) &&
-                        Array.isArray(overrideCss)
-                      ) {
-                        return [...baseCss, ...overrideCss];
-                      } else if (Array.isArray(baseCss)) {
-                        return [...baseCss, overrideCss];
-                      } else if (Array.isArray(overrideCss)) {
-                        return [baseCss, ...overrideCss];
-                      } else {
-                        return [baseCss, overrideCss];
-                      }
-                    }
-                  : getCss
-              }
-              {...restProps}
-            />
-          </>
-        );
+      return (
+        <>
+          {styleElement}
+          {/* @ts-expect-error props type */}
+          <BaseComponent
+            className={
+              className ? `${styleClassName} ${className}` : styleClassName
+            }
+            {...restProps}
+          />
+        </>
+      );
+    } else {
+      const { css, ...restProps } = props;
+
+      const { className } = restProps;
+
+      if (
+        typeof className === 'string' &&
+        (className as string)
+          .split(ws)
+          .some((c) => c.startsWith(getPrefix(config)))
+      ) {
+        if (process.env.NODE_ENV !== 'production') {
+          throw new Error(errorMsg);
+        } else {
+          console.error(errorMsg);
+        }
       }
-    },
-    {
-      as: <C extends ElementType>(component: C) => {
-        return styled(config, component, getCss);
-      },
-    },
-  );
+
+      return (
+        <>
+          {/* @ts-expect-error props type */}
+          <BaseComponent
+            css={
+              css
+                ? (context: Context) => {
+                    const baseCss = getCss(context);
+                    const overrideCss = css(context);
+
+                    // merge baseCss and overrideCss
+                    if (Array.isArray(baseCss) && Array.isArray(overrideCss)) {
+                      return [...baseCss, ...overrideCss];
+                    } else if (Array.isArray(baseCss)) {
+                      return [...baseCss, overrideCss];
+                    } else if (Array.isArray(overrideCss)) {
+                      return [baseCss, ...overrideCss];
+                    } else {
+                      return [baseCss, overrideCss];
+                    }
+                  }
+                : getCss
+            }
+            {...restProps}
+          />
+        </>
+      );
+    }
+  };
 
   // We don't want to expose these properties
   Object.assign(StyledComponent, {
     [hasCssPropKey]: true,
+    $getCss: getCss,
     $styleCache: undefined as Readonly<ProcessedStyle[]> | undefined,
     $getStyles: isStyledComponent
       ? undefined

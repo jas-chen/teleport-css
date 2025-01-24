@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`can clone style 1`] = `
+"<style data-precedence="1" data-href="x-157mpepm-1 x-39u6vegt-1">
+  .x-157mpepm-1 {
+    color: red
+  }
+
+  .x-39u6vegt-1 {
+    background: blue
+  }
+</style>
+<div><button class="x-157mpepm-1 x-39u6vegt-1"></button><a class="x-157mpepm-1 x-39u6vegt-1"></a></div>"
+`;
