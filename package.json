@@ -13,7 +13,9 @@
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "docs",
+    "!**/*.tsbuildinfo"
   ],
   "scripts": {
     "format": "prettier . --write",
