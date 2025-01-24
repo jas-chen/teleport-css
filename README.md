@@ -1,6 +1,4 @@
-<a href="https://www.npmjs.com/package/teleport-css"><img alt="npm version" src="https://badgen.net/
-npm/v/teleport-css
-"></a>
+<a href="https://www.npmjs.com/package/teleport-css"><img alt="npm version" src="https://badgen.net/npm/v/teleport-css"></a>
 <a href="https://bundlephobia.com/package/teleport-css"><img alt="bundle size" src="https://badgen.net/bundlephobia/minzip/teleport-css"></a>
 
 # Teleport CSS
