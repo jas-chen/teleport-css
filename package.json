@@ -4,6 +4,7 @@
   "description": "Styling library for React 19.",
   "packageManager": "pnpm@9.15.4",
   "type": "module",
+  "module": "dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
