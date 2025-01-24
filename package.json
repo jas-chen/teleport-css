@@ -1,5 +1,5 @@
 {
-  "name": "matcha-css",
+  "name": "teleport-css",
   "version": "0.1.0",
   "description": "Styling library for React 19.",
   "packageManager": "pnpm@9.15.4",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jas-chen/matcha-css.git"
+    "url": "git+https://github.com/jas-chen/teleport-css.git"
   },
   "keywords": [
     "react",
@@ -42,9 +42,9 @@
   "author": "Jas Chen <jaschen.tw@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jas-chen/matcha-css/issues"
+    "url": "https://github.com/jas-chen/teleport-css/issues"
   },
-  "homepage": "https://github.com/jas-chen/matcha-css#readme",
+  "homepage": "https://github.com/jas-chen/teleport-css#readme",
   "devDependencies": {
     "@sindresorhus/fnv1a": "^3.1.0",
     "@types/node": "^22.10.7",

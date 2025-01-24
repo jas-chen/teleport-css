@@ -1,3 +1,3 @@
-# Matcha CSS - Documentation
+# Documentation
 
 TBD

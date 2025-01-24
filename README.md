@@ -1,6 +1,4 @@
-# Matcha CSS
-
-<a title="Irvan Ary Maulana, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Matcha_tea_latte_with_rosetta_latte_art.jpg"><img width="512" alt="Matcha tea latte with rosetta latte art" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Matcha_tea_latte_with_rosetta_latte_art.jpg/512px-Matcha_tea_latte_with_rosetta_latte_art.jpg?20220722195139"></a>
+# Teleport CSS
 
 ## Features
 
@@ -16,13 +14,13 @@
 ## Installation
 
 ```
-npm i matcha-css
+npm i teleport-css
 ```
 
 ## Usage
 
 ```tsx
-import { create } from 'matcha-css';
+import { create } from 'teleport-css';
 // Use whatever hash algorithm you like
 import fnv1a from '@sindresorhus/fnv1a';
 
