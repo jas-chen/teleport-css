@@ -4,16 +4,6 @@ import { toStyles } from './toStyles';
 import type { ProcessedStyle, GetCss, Config } from './types';
 import { getPrefix } from './getPrefix';
 
-const hasCssPropKey = '$hasCssProp';
-
-export function forwardCss<C extends ElementType>(component: C): C {
-  Object.assign(component, {
-    [hasCssPropKey]: true,
-  });
-
-  return component;
-}
-
 const ws = /[\s]+/;
 const errorMsg =
   'Please use the `css` prop instead of `className` to style a styled component.';
@@ -27,7 +17,7 @@ export function styled<Component extends ElementType, Context>(
   },
   getCss: GetCss<Context>,
 ) {
-  const isStyledComponent = Object.hasOwn(BaseComponent, hasCssPropKey);
+  const isStyledComponent = Object.hasOwn(BaseComponent, '$getCss');
 
   const StyledComponent = (
     props: ComponentProps<Component> & {
@@ -110,7 +100,6 @@ export function styled<Component extends ElementType, Context>(
 
   // We don't want to expose these properties
   Object.assign(StyledComponent, {
-    [hasCssPropKey]: true,
     $getCss: getCss,
     $styleCache: undefined as Readonly<ProcessedStyle[]> | undefined,
     $getStyles: isStyledComponent

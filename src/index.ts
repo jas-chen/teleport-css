@@ -8,7 +8,6 @@ import {
 } from './toStyles';
 
 export * from './types';
-export { forwardCss } from './styled';
 
 export function create<Context>(config: Config<Context>) {
   const internalConfig = { ...config };

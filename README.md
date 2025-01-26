@@ -8,7 +8,8 @@
 - Plug-and-play: No bundler or PostCSS configuration is required
 - [React Server Components](https://react.dev/reference/rsc/server-components) (RSC) support
 - [Streaming](https://react.dev/reference/react-dom/server/renderToPipeableStream) support
-- Atomic CSS without footgun \[[1](https://play.tailwindcss.com/9XhuiUFF6n)]\[[2](https://play.panda-css.com/269sbigMXM)]
+- Atomic CSS without footguns \[[1](https://play.tailwindcss.com/9XhuiUFF6n)]\[[2](https://play.panda-css.com/269sbigMXM)]
+- Designed for creating component libraries.
 
 ## Prerequisites
 

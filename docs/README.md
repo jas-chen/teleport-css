@@ -1,3 +1,154 @@
 # Documentation
 
-TBD
+## Setup
+
+First, create a file named `css.ts` in a convenient location within your project.
+
+```ts
+import { create } from 'teleport-css';
+// Use your preferred hash algorithm
+import fnv1a from '@sindresorhus/fnv1a';
+
+function hashFn(value: string) {
+  return fnv1a(value, { size: 64 }).toString(36).slice(0, 8);
+}
+
+const { setConfig, styled, cloneAs, keyframes, counterStyle } = create({
+  hashFn,
+});
+
+export { setConfig, styled, cloneAs, keyframes, counterStyle };
+```
+
+## `styled`
+
+The `styled` function is the core of this library, enabling the creation of styled components.
+
+The output selectors remain unaltered (no merging occurs). For more details on the syntax, please refer to [CSS nesting](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting).
+
+### Basic Example
+
+```tsx
+import { styled } from 'path/to/css';
+
+const Button = styled('button', () => ({
+  backgroundColor: 'pink',
+  '&:hover': {
+    backgroundColor: 'lemonchiffon',
+  },
+}));
+```
+
+### Fallback Styles
+
+You can return an array of styles, which is helpful for defining fallbacks for browsers that don't support specific features.
+
+```tsx
+import { styled } from 'path/to/css';
+
+const Text = styled('span', () => [
+  // Fallback for browsers without RGBa support
+  { color: 'black' },
+  { color: 'rgba(0,0,0,0.9)' },
+]);
+```
+
+### Overriding Styles with `css`
+
+The `css` prop allows you to override or extend styles dynamically.
+
+```tsx
+function App() {
+  return (
+    <Button
+      css={() => ({
+        backgroundColor: 'gold',
+      })}
+    >
+      Gold
+    </Button>
+  );
+}
+```
+
+## `cloneAs`
+
+The `cloneAs` function allows you to clone an existing styled component and render it as a different element.
+
+```ts
+import { cloneAs } from 'path/to/css';
+
+const Link = cloneAs(Button, 'a');
+```
+
+## `keyframes`
+
+Create CSS animations using the `keyframes` function.
+
+```ts
+import { keyframes } from 'path/to/css';
+
+const spin = keyframes(() => ({
+  from: { transform: 'rotate(0deg)' },
+  to: { transform: 'rotate(360deg)' },
+}));
+
+const Button = styled('button', () => ({
+  animation: `${spin} 1s ease infinite`,
+}));
+
+// Alternative syntax
+const AnotherButton = styled('button', () => ({
+  animationName: spin,
+}));
+```
+
+## `counterStyle`
+
+Define custom list styles using the `counterStyle` function.
+
+```ts
+import { counterStyle } from 'path/to/css';
+
+const thumbs = counterStyle(() => ({
+  system: 'cyclic',
+  symbols: '"\1F44D"',
+  suffix: '" "',
+}));
+
+const List = styled('ul', () => ({
+  listStyle: thumbs,
+}));
+```
+
+## `setConfig`
+
+Use the `setConfig` function to update the configuration dynamically. Ensure this function is called **before rendering components** for the changes to take effect.
+
+```ts
+import { setConfig } from 'path/to/css';
+
+setConfig({
+  prefix: 'z',
+});
+```
+
+## Configuration Object
+
+The `Config` interface defines the options you can provide when setting up the library.
+
+```ts
+interface Config<Context> {
+  // Function to hash class names or other variables
+  hashFn: (value: string) => string;
+
+  // Optional prefix for class names and variables (default: 'x')
+  prefix?: string;
+
+  // Optional context for creating CSS objects
+  context?: Context;
+
+  // Function to post-process the generated CSS
+  postProcessor?: (code: string) => string;
+}
+```
