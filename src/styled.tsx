@@ -2,7 +2,6 @@ import { ElementType, ComponentProps, ReactElement } from 'react';
 import { renderProcessedStyle } from './renderProcessedStyle';
 import { toStyles } from './toStyles';
 import type { ProcessedStyle, GetCss, Config } from './types';
-import { getPrefix } from './getPrefix';
 
 const ws = /[\s]+/;
 const errorMsg =
@@ -59,7 +58,7 @@ export function styled<Component extends ElementType, Context>(
         typeof className === 'string' &&
         (className as string)
           .split(ws)
-          .some((c) => c.startsWith(getPrefix(config)))
+          .some((c) => c.startsWith(config.prefix!))
       ) {
         if (process.env.NODE_ENV !== 'production') {
           throw new Error(errorMsg);

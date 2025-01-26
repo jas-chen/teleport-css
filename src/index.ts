@@ -9,11 +9,15 @@ import {
 
 export * from './types';
 
+const defaultPrefix = 'x';
+
 export function create<Context>(config: Config<Context>) {
-  const internalConfig = { ...config };
+  const internalConfig = { ...config, prefix: config.prefix || defaultPrefix };
 
   const setConfig = (newConfig: Config<Context>) => {
-    Object.assign(internalConfig, newConfig);
+    Object.assign(internalConfig, newConfig, {
+      prefix: newConfig.prefix || internalConfig.prefix,
+    });
   };
 
   const styled = <Component extends ElementType>(

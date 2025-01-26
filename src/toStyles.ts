@@ -1,4 +1,3 @@
-import { getPrefix } from './getPrefix';
 import type {
   Config,
   CSSObject,
@@ -102,7 +101,7 @@ function processCss<Context>(
               // handle browser prefix
               name.startsWith('-') ? 2 : 0
             ],
-        hash: `${getPrefix(config)}${config.hashFn(code)}`,
+        hash: `${config.prefix}${config.hashFn(code)}`,
         code: isAtRule ? code : `{${code}}`,
       });
     } else if (Array.isArray(value)) {
@@ -143,7 +142,7 @@ export function createDefinition<Context>(
 ) {
   const css = getCss(config.context!);
   const body = cssToString(css);
-  const hash = `${getPrefix(config)}${config.hashFn(body)}`;
+  const hash = `${config.prefix}${config.hashFn(body)}`;
   const name = `${type} ${hash}`;
 
   return {
