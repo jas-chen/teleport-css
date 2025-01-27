@@ -3,13 +3,12 @@
 
 # Teleport CSS
 
-## Features
-
-- Plug-and-play: No bundler or PostCSS configuration is required
-- [React Server Components](https://react.dev/reference/rsc/server-components) (RSC) support
-- [Streaming](https://react.dev/reference/react-dom/server/renderToPipeableStream) support
-- Atomic CSS without footguns \[[1](https://play.tailwindcss.com/9XhuiUFF6n)]\[[2](https://play.panda-css.com/269sbigMXM)]
-- Designed for creating component libraries.
+## Features  
+- **Plug-and-Play**: Works out of the box—no need for bundler or PostCSS configuration.  
+- **React Server Components (RSC) Support**: Seamlessly integrates with [React Server Components](https://react.dev/reference/rsc/server-components).  
+- **Streaming Support**: Compatible with [React's streaming rendering](https://react.dev/reference/react-dom/server/renderToPipeableStream).  
+- **Atomic CSS, Minus the Pitfalls**: Achieve atomic CSS with ease, avoiding common issues \[[1](https://play.tailwindcss.com/9XhuiUFF6n)]\[[2](https://play.panda-css.com/269sbigMXM)].  
+- **Optimized for Component Libraries**: Specifically designed to streamline the creation of reusable component libraries.  
 
 ## Prerequisites
 
