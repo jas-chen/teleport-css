@@ -2,6 +2,7 @@ import { ElementType } from 'react';
 import { Config, GetCss, GetSingleCss } from './types';
 import { styled as _styled } from './styled';
 import { cloneAs as _cloneAs } from './cloneAs';
+import { renderGlobalStyle as _renderGlobalStyle } from './renderGlobalStyle';
 import {
   keyframes as _keyframes,
   counterStyle as _counterStyle,
@@ -47,11 +48,16 @@ export function create<Context>(config: Config<Context>) {
     return _cloneAs(internalConfig, sourceComponent, newComponent);
   };
 
+  const renderGlobalStyle = (getCss: GetSingleCss<Context>) => {
+    return _renderGlobalStyle(internalConfig, getCss);
+  };
+
   return {
     setConfig,
     styled,
     cloneAs,
     keyframes,
     counterStyle,
+    renderGlobalStyle,
   };
 }

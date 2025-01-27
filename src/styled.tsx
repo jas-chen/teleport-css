@@ -58,7 +58,7 @@ export function styled<Component extends ElementType, Context>(
         typeof className === 'string' &&
         (className as string)
           .split(ws)
-          .some((c) => c.startsWith(config.prefix!))
+          .some((c) => c.startsWith(`${config.prefix}-`))
       ) {
         if (process.env.NODE_ENV !== 'production') {
           throw new Error(errorMsg);

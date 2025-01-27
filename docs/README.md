@@ -31,11 +31,16 @@ The output selectors remain unaltered (no merging occurs). For more details on t
 ```tsx
 import { styled } from 'path/to/css';
 
-const Button = styled('button', () => ({
+const Button = styled('button', (context) => ({
   backgroundColor: 'pink',
   '&:hover': {
     backgroundColor: 'lemonchiffon',
   },
+}));
+
+// You can also style a styled component
+const PrimaryButton = styled(Button, (context) => ({
+  backgroundColor: 'lightblue',
 }));
 ```
 
@@ -46,7 +51,7 @@ You can return an array of styles, which is helpful for defining fallbacks for b
 ```tsx
 import { styled } from 'path/to/css';
 
-const Text = styled('span', () => [
+const Text = styled('span', (context) => [
   // Fallback for browsers without RGBa support
   { color: 'black' },
   { color: 'rgba(0,0,0,0.9)' },
@@ -61,7 +66,7 @@ The `css` prop allows you to override or extend styles dynamically.
 function App() {
   return (
     <Button
-      css={() => ({
+      css={(context) => ({
         backgroundColor: 'gold',
       })}
     >
@@ -88,17 +93,17 @@ Create CSS animations using the `keyframes` function.
 ```ts
 import { keyframes } from 'path/to/css';
 
-const spin = keyframes(() => ({
+const spin = keyframes((context) => ({
   from: { transform: 'rotate(0deg)' },
   to: { transform: 'rotate(360deg)' },
 }));
 
-const Button = styled('button', () => ({
+const Button = styled('button', (context) => ({
   animation: `${spin} 1s ease infinite`,
 }));
 
 // Alternative syntax
-const AnotherButton = styled('button', () => ({
+const AnotherButton = styled('button', (context) => ({
   animationName: spin,
 }));
 ```
@@ -110,13 +115,13 @@ Define custom list styles using the `counterStyle` function.
 ```ts
 import { counterStyle } from 'path/to/css';
 
-const thumbs = counterStyle(() => ({
+const thumbs = counterStyle((context) => ({
   system: 'cyclic',
   symbols: '"\1F44D"',
   suffix: '" "',
 }));
 
-const List = styled('ul', () => ({
+const List = styled('ul', (context) => ({
   listStyle: thumbs,
 }));
 ```
@@ -131,6 +136,27 @@ import { setConfig } from 'path/to/css';
 setConfig({
   prefix: 'z',
 });
+```
+
+## `renderGlobalStyle`
+
+Define global styles using the `renderGlobalStyle` function.
+
+```tsx
+import { renderGlobalStyle } from 'path/to/css';
+
+function App() {
+  const globalStyle = renderGlobalStyle((context) => ({
+    ':root': {
+      '--black': '#000',
+    },
+    body: {
+      color: 'var(--black)',
+    },
+  }));
+
+  return <>{globalStyle}</>;
+}
 ```
 
 ## Configuration Object

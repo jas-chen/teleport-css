@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`can define animation 1`] = `
+"<style data-precedence="0" data-href="x-njyhcpjq">
+  @keyframes x-njyhcpjq {
+    from {
+      transform: rotate(0deg)
+    }
+
+    to {
+      transform: rotate(360deg)
+    }
+  }
+</style>
+<style data-precedence="1" data-href="x-s3glaj0u-1">
+  .x-s3glaj0u-1 {
+    animation: x-njyhcpjq 1s ease infinite
+  }
+</style><button class="x-s3glaj0u-1"></button>"
+`;

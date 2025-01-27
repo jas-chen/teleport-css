@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`can define animation 1`] = `
+"<style data-precedence="-1" data-href="1f5f73dq">
+  :root {
+    --black: #000
+  }
+
+  body {
+    main {
+      color: var(--black)
+    }
+  }
+</style>
+<style data-precedence="0" data-href="$0"></style>
+<style data-precedence="1" data-href="$1"></style>"
+`;

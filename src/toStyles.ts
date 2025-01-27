@@ -1,3 +1,4 @@
+import { cssToString } from './cssToString';
 import type {
   Config,
   CSSObject,
@@ -25,7 +26,7 @@ const processStyleName = /* #__PURE__ */ memoize((styleName: string) =>
     : styleName.replace(hyphenateRegex, '-$&').toLowerCase(),
 );
 
-function isPlainObject(obj: unknown): obj is object {
+export function isPlainObject(obj: unknown): obj is object {
   if (typeof obj !== 'object' || obj === null) return false;
 
   let proto = obj;
@@ -101,7 +102,7 @@ function processCss<Context>(
               // handle browser prefix
               name.startsWith('-') ? 2 : 0
             ],
-        hash: `${config.prefix}${config.hashFn(code)}`,
+        hash: `${config.prefix}-${config.hashFn(code)}`,
         code: isAtRule ? code : `{${code}}`,
       });
     } else if (Array.isArray(value)) {
@@ -114,35 +115,14 @@ function processCss<Context>(
   });
 }
 
-function cssToString(css: CSSObject): string {
-  let result = '';
-  Object.entries(css).forEach(([key, value], i, array) => {
-    if (i === 0) {
-      result += '{';
-    }
-    if (!isPlainObject(value)) {
-      result += `${key}:${value}${i !== array.length - 1 ? ';' : ''}`;
-    } else if (Array.isArray(value)) {
-      value.forEach((v) => (result += cssToString(v)));
-    } else {
-      result += `${key} ${cssToString(value)}`;
-    }
-    if (i === array.length - 1) {
-      result += '}';
-    }
-  });
-
-  return result;
-}
-
 export function createDefinition<Context>(
   config: Config<Context>,
   type: string,
   getCss: GetSingleCss<Context>,
 ) {
   const css = getCss(config.context!);
-  const body = cssToString(css);
-  const hash = `${config.prefix}${config.hashFn(body)}`;
+  const body = `{${cssToString(css)}}`;
+  const hash = `${config.prefix}-${config.hashFn(body)}`;
   const name = `${type} ${hash}`;
 
   return {
