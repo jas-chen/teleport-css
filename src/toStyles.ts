@@ -122,7 +122,7 @@ export function createDefinition<Context>(
 ) {
   const css = getCss(config.context!);
   const body = `{${cssToString(css)}}`;
-  const hash = `${config.prefix}-${config.hashFn(body)}`;
+  const hash = `${config.prefix}-${config.hashFn(`${type} ${body}`)}`;
   const name = `${type} ${hash}`;
 
   return {
