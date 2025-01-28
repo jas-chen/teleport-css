@@ -62,6 +62,8 @@ const Text = styled('span', (context) => [
 
 The `css` prop allows you to override or extend styles dynamically.
 
+> The `css` prop is ideal for handling dynamic styling, such as styles based on user input. Unlike `styled`, which processes CSS objects once and caches the result for better performance, the `css` prop processes CSS objects on every render. While the `css` prop is flexible, `styled` is faster and should be your first choice whenever possible.
+
 ```tsx
 function App() {
   return (
