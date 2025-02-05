@@ -3,6 +3,8 @@
 
 # Teleport CSS
 
+A simple yet powerful CSS library for React 19.
+
 ## Features
 
 - **Plug-and-Play**: Works out of the box—no need for bundler or PostCSS configuration.
@@ -25,7 +27,7 @@ npm i teleport-css
 
 ```tsx
 import { create } from 'teleport-css';
-// Use whatever hash algorithm you like
+// Use your preferred hash algorithm
 import fnv1a from '@sindresorhus/fnv1a';
 
 function hashFn(value: string) {

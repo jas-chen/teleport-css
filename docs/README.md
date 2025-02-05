@@ -52,9 +52,9 @@ You can return an array of styles, which is helpful for defining fallbacks for b
 import { styled } from 'path/to/css';
 
 const Text = styled('span', (context) => [
-  // Fallback for browsers without RGBa support
-  { color: 'black' },
-  { color: 'rgba(0,0,0,0.9)' },
+  // Fallback for browsers without oklch support
+  { color: '#ffb0e9' },
+  { color: 'oklch(95%, 0.2, 0)' },
 ]);
 ```
 
