@@ -29,7 +29,7 @@ export type RenderResult = [style: ReactElement, className: string];
  *
  * @template Context - The type of context to be used when creating CSS objects.
  */
-export interface Config<Context> {
+export interface ConfigInput<Context> {
   /**
    * The function to hash class names and other variables.
    *
@@ -45,6 +45,40 @@ export interface Config<Context> {
    * @type {string}
    */
   prefix?: string;
+
+  /**
+   * The context to use when creating CSS objects.
+   *
+   * @type {Context}
+   */
+  context?: Context;
+
+  /**
+   * A function to post-process the generated CSS.
+   *
+   * @param {string} code - The generated CSS code.
+   * @returns {string} The post-processed CSS code.
+   */
+  postProcessor?: (code: string) => string;
+}
+
+// Ensure prefix exists
+export interface Config<Context> {
+  /**
+   * The function to hash class names and other variables.
+   *
+   * @param {string} value - The value to be hashed.
+   * @returns {string} The hashed value.
+   */
+  hashFn: (value: string) => string;
+
+  /**
+   * The prefix to use when creating class names and other variables.
+   * Defaults to `x`.
+   *
+   * @type {string}
+   */
+  prefix: string;
 
   /**
    * The context to use when creating CSS objects.

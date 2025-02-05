@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import { Config, GetCss, GetSingleCss } from './types';
+import { ConfigInput, Config, GetCss, GetSingleCss } from './types';
 import { styled as _styled } from './styled';
 import { cloneAs as _cloneAs } from './cloneAs';
 import { renderGlobalStyle as _renderGlobalStyle } from './renderGlobalStyle';
@@ -12,13 +12,20 @@ export * from './types';
 
 const defaultPrefix = 'x';
 
-export function create<Context>(config: Config<Context>) {
-  const internalConfig = { ...config, prefix: config.prefix || defaultPrefix };
+export function create<Context>(config: ConfigInput<Context>) {
+  let internalConfig: Config<Context> = {
+    ...config,
+    prefix: config.prefix || defaultPrefix,
+  };
 
-  const setConfig = (newConfig: Config<Context>) => {
+  const setConfig = (newConfig: ConfigInput<Context>) => {
     Object.assign(internalConfig, newConfig, {
       prefix: newConfig.prefix || internalConfig.prefix,
     });
+  };
+
+  const getConfig = () => {
+    return { ...internalConfig };
   };
 
   const styled = <Component extends ElementType>(
@@ -54,6 +61,7 @@ export function create<Context>(config: Config<Context>) {
 
   return {
     setConfig,
+    getConfig,
     styled,
     cloneAs,
     keyframes,

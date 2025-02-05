@@ -140,6 +140,21 @@ setConfig({
 });
 ```
 
+## `getConfig`
+
+Retrieve the current configuration using the `getConfig` function.
+
+```ts
+import { getConfig } from 'path/to/css';
+
+
+function Button(props: React.ComponentProps<'button'>) {
+  return (
+    <button className={`${getConfig().prefix}-Button`} {...props} />
+  )
+}
+```
+
 ## `renderGlobalStyle`
 
 Define global styles using the `renderGlobalStyle` function.
