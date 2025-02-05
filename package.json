@@ -23,6 +23,7 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "build": "rm -rf dist && tsup src/index.ts --sourcemap --format esm && tsc --project tsconfig.build.json",
+    "size": "rm -rf dist && tsup src/index.ts --minify --sourcemap --format esm && gzip -c dist/index.js | wc -c",
     "prepublishOnly": "pnpm build"
   },
   "repository": {
