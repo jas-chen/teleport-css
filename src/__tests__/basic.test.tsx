@@ -99,3 +99,39 @@ test('CSS value fallback', () => {
     ),
   ).toMatchSnapshot();
 });
+
+test('style composition', () => {
+  const Button = styled('button', () => ({
+    color: 'red',
+    background: '#fff',
+  }));
+
+  const PrimaryButton = styled(Button, () => ({
+    background: 'blue',
+  }));
+
+  expect(
+    pretty(
+      renderToStaticMarkup(
+        <div>
+          <Button
+            onClick={
+              // test typing
+              (e: MouseEvent<HTMLButtonElement>) => {
+                console.log(e);
+              }
+            }
+          />
+          <PrimaryButton
+            onClick={
+              // test typing
+              (e: MouseEvent<HTMLButtonElement>) => {
+                console.log(e);
+              }
+            }
+          />
+        </div>,
+      ),
+    ),
+  ).toMatchSnapshot();
+});

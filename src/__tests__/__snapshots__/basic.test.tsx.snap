@@ -48,6 +48,24 @@ exports[`no footgun 1`] = `
 <div><span class="x-9p6p2vms-1 x-16x8ijtr-2"></span><span class="x-16x8ijtr-1 x-9p6p2vms-2"></span></div>"
 `;
 
+exports[`style composition 1`] = `
+"<style data-precedence="1" data-href="x-157mpepm-1 x-mqt2cko5-1">
+  .x-157mpepm-1 {
+    color: red
+  }
+
+  .x-mqt2cko5-1 {
+    background: #fff
+  }
+</style>
+<style data-precedence="2" data-href="x-39u6vegt-2">
+  .x-39u6vegt-2 {
+    background: blue
+  }
+</style>
+<div><button class="x-157mpepm-1 x-mqt2cko5-1"></button><button class="x-157mpepm-1 x-mqt2cko5-1 x-39u6vegt-2"></button></div>"
+`;
+
 exports[`style deduplication 1`] = `
 "<style data-precedence="1" data-href="x-157mpepm-1 x-39u6vegt-1 x-38xvzlwd-1">
   .x-157mpepm-1 {
