@@ -3,7 +3,7 @@
 
 # Teleport CSS
 
-A simple yet powerful CSS library for React 19.
+A simple yet powerful CSS-in-JS library for React 19.
 
 ## Features
 
