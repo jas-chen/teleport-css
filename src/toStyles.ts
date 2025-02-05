@@ -1,4 +1,5 @@
 import { cssToString } from './cssToString';
+import { isCssValue } from './isCssValue';
 import type {
   Config,
   CSSObject,
@@ -85,12 +86,7 @@ function processCss<Context>(
   }
 
   Object.entries(css).forEach(([key, value]) => {
-    if (
-      typeof value === 'string' ||
-      (typeof value === 'number' && !isNaN(value)) ||
-      (Object.hasOwn(value as object, 'toString') &&
-        typeof (value as object).toString === 'function')
-    ) {
+    if (isCssValue(value)) {
       const name = processStyleName(key);
       const isAtRule = name.startsWith('@');
       const code = createCode(parents, name, String(value));
