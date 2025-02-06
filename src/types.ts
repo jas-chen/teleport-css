@@ -80,5 +80,7 @@ export interface Config<Context> {
   context?: Context;
 }
 
-export type GetCss<Context> = (context: Context) => CSSObject | CSSObject[];
+type CssObjectArray = (CSSObject | CssObjectArray)[];
+export type CssInput = CSSObject | CssObjectArray;
+export type GetCss<Context> = (context: Context) => CssInput;
 export type GetSingleCss<Context> = (context: Context) => CSSObject;

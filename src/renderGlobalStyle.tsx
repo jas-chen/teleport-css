@@ -1,5 +1,5 @@
 import { cssToString } from './cssToString';
-import { Config, GetCss } from './types';
+import type { Config, GetCss } from './types';
 
 export function renderGlobalStyle<Context>(
   config: Config<Context>,

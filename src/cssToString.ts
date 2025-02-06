@@ -1,11 +1,8 @@
 import { isCssValue } from './isCssValue';
 import { isPlainObject } from './toStyles';
-import type { CSSObject } from './types';
+import type { CssInput } from './types';
 
-export function cssToString(
-  css: CSSObject | CSSObject[],
-  isRoot: boolean = true,
-): string {
+export function cssToString(css: CssInput, isRoot: boolean = true): string {
   if (Array.isArray(css)) {
     return css.map((v) => cssToString(v, isRoot)).join('');
   }

@@ -2,12 +2,11 @@ import { cssToString } from './cssToString';
 import { isCssValue } from './isCssValue';
 import type {
   Config,
-  CSSObject,
+  CssInput,
   GetCss,
   GetSingleCss,
   ProcessedStyle,
 } from './types';
-export * from './types';
 
 function memoize<V>(fn: (arg: string) => V): (arg: string) => V {
   const cache: Record<string, V> = Object.create(null);
@@ -70,7 +69,7 @@ let processedStyle: ProcessedStyle[] = [];
 
 function processCss<Context>(
   config: Config<Context>,
-  css: CSSObject | CSSObject[],
+  css: CssInput,
   parents: string[] | undefined = undefined,
 ) {
   if (Array.isArray(css)) {

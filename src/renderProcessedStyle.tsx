@@ -1,4 +1,4 @@
-import type { ProcessedStyle, RenderResult, Config } from './types';
+import type { ProcessedStyle, RenderResult } from './types';
 
 export function renderProcessedStyle(
   styles: Readonly<ProcessedStyle[]>,

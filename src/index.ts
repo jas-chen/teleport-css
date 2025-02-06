@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import { ConfigInput, Config, GetCss, GetSingleCss } from './types';
+import type { ConfigInput, Config, GetCss, GetSingleCss } from './types';
 import { styled as _styled } from './styled';
 import { cloneAs as _cloneAs } from './cloneAs';
 import { renderGlobalStyle as _renderGlobalStyle } from './renderGlobalStyle';

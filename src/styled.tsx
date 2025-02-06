@@ -24,26 +24,10 @@ export function styled<Component extends ElementType, Context>(
   const { $component, $getCss } = BaseComponent;
 
   if ($component && $getCss) {
-    return styled(
-      config,
-      $component,
-      // @ts-expect-error tsc failed to check the returned type
-      (context: Context) => {
-        const baseCss = $getCss(context);
-        const overrideCss = getCss(context);
-
-        // merge baseCss and overrideCss
-        if (Array.isArray(baseCss) && Array.isArray(overrideCss)) {
-          return [...baseCss, ...overrideCss];
-        } else if (Array.isArray(baseCss)) {
-          return [...baseCss, overrideCss];
-        } else if (Array.isArray(overrideCss)) {
-          return [baseCss, ...overrideCss];
-        } else {
-          return [baseCss, overrideCss];
-        }
-      },
-    );
+    return styled(config, $component, (context: Context) => [
+      $getCss(context),
+      getCss(context),
+    ]);
   }
 
   const StyledComponent = (
