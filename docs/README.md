@@ -191,8 +191,5 @@ interface Config<Context> {
 
   // Optional context for creating CSS objects
   context?: Context;
-
-  // Function to post-process the generated CSS
-  postProcessor?: (code: string) => string;
 }
 ```

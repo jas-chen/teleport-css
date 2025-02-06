@@ -1,7 +1,6 @@
 import type { ProcessedStyle, RenderResult, Config } from './types';
 
-export function renderProcessedStyle<Context>(
-  config: Config<Context>,
+export function renderProcessedStyle(
   styles: Readonly<ProcessedStyle[]>,
 ): RenderResult {
   const groupCount: Record<string, number> = {};
@@ -11,12 +10,11 @@ export function renderProcessedStyle<Context>(
     <>
       {styles.map((style) => {
         const { hash, group, code } = style;
-        const { postProcessor } = config;
 
         if (group === '@') {
           return (
             <style key={hash} href={hash} precedence="0">
-              {postProcessor ? postProcessor(code) : code}
+              {code}
             </style>
           );
         }
@@ -38,7 +36,7 @@ export function renderProcessedStyle<Context>(
               precedence === undefined ? undefined : String(precedence)
             }
           >
-            {postProcessor ? postProcessor(finalCode) : finalCode}
+            {finalCode}
           </style>
         );
       })}

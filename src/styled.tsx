@@ -83,7 +83,6 @@ export function styled<Component extends ElementType, Context>(
     }
 
     const [styleElement, styleClassName] = renderProcessedStyle(
-      config,
       css ? [...styles, ...toStyles(config, css)] : styles,
     );
 

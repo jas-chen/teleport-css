@@ -52,14 +52,6 @@ export interface ConfigInput<Context> {
    * @type {Context}
    */
   context?: Context;
-
-  /**
-   * A function to post-process the generated CSS.
-   *
-   * @param {string} code - The generated CSS code.
-   * @returns {string} The post-processed CSS code.
-   */
-  postProcessor?: (code: string) => string;
 }
 
 // Ensure prefix exists
@@ -86,14 +78,6 @@ export interface Config<Context> {
    * @type {Context}
    */
   context?: Context;
-
-  /**
-   * A function to post-process the generated CSS.
-   *
-   * @param {string} code - The generated CSS code.
-   * @returns {string} The post-processed CSS code.
-   */
-  postProcessor?: (code: string) => string;
 }
 
 export type GetCss<Context> = (context: Context) => CSSObject | CSSObject[];
