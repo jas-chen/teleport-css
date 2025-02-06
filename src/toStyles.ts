@@ -70,9 +70,14 @@ let processedStyle: ProcessedStyle[] = [];
 
 function processCss<Context>(
   config: Config<Context>,
-  css: CSSObject,
+  css: CSSObject | CSSObject[],
   parents: string[] | undefined = undefined,
 ) {
+  if (Array.isArray(css)) {
+    css.forEach((v) => processCss(config, v, parents));
+    return;
+  }
+
   if (!isPlainObject(css)) {
     const errorMsg = `Expected a plain object, got ${typeof css}: ${css}.`;
 
@@ -153,12 +158,6 @@ export function toStyles<Context>(
 ): ProcessedStyle[] {
   processedStyle = [];
   const css = getCss(config.context!);
-
-  if (Array.isArray(css)) {
-    css.forEach((c) => processCss(config, c));
-  } else {
-    processCss(config, css);
-  }
-
+  processCss(config, css);
   return processedStyle;
 }

@@ -1,9 +1,9 @@
 import { cssToString } from './cssToString';
-import { Config, GetSingleCss } from './types';
+import { Config, GetCss } from './types';
 
 export function renderGlobalStyle<Context>(
   config: Config<Context>,
-  getCss: GetSingleCss<Context>,
+  getCss: GetCss<Context>,
 ) {
   const code = cssToString(getCss(config.context!));
 
