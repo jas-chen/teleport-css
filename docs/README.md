@@ -13,11 +13,12 @@ function hashFn(value: string) {
   return fnv1a(value, { size: 64 }).toString(36).slice(0, 8);
 }
 
-const { setConfig, styled, cloneAs, keyframes, counterStyle } = create({
-  hashFn,
-});
+const { setConfig, getConfig, styled, cloneAs, keyframes, counterStyle } =
+  create({
+    hashFn,
+  });
 
-export { setConfig, styled, cloneAs, keyframes, counterStyle };
+export { setConfig, getConfig, styled, cloneAs, keyframes, counterStyle };
 ```
 
 ## `styled`
