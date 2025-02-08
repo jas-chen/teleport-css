@@ -3,8 +3,8 @@ import { isCssValue } from './isCssValue';
 import type {
   Config,
   CssInput,
-  GetCss,
-  GetSingleCss,
+  CreateCss,
+  CreateSingleCss,
   ProcessedStyle,
 } from './types';
 
@@ -118,9 +118,9 @@ function processCss<Context>(
 export function createDefinition<Context>(
   config: Config<Context>,
   type: string,
-  getCss: GetSingleCss<Context>,
+  createCss: CreateSingleCss<Context>,
 ) {
-  const css = getCss(config.context!);
+  const css = createCss(config.context!);
   const body = `{${cssToString(css)}}`;
   const hash = `${config.prefix}-${config.hashFn(`${type} ${body}`)}`;
   const name = `${type} ${hash}`;
@@ -139,24 +139,24 @@ export function createDefinition<Context>(
 
 export function keyframes<Context>(
   config: Config<Context>,
-  getCss: GetSingleCss<Context>,
+  createCss: CreateSingleCss<Context>,
 ) {
-  return createDefinition(config, '@keyframes', getCss);
+  return createDefinition(config, '@keyframes', createCss);
 }
 
 export function counterStyle<Context>(
   config: Config<Context>,
-  getCss: GetSingleCss<Context>,
+  createCss: CreateSingleCss<Context>,
 ) {
-  return createDefinition(config, '@counter-style', getCss);
+  return createDefinition(config, '@counter-style', createCss);
 }
 
 export function toStyles<Context>(
   config: Config<Context>,
-  getCss: GetCss<Context>,
+  createCss: CreateCss<Context>,
 ): ProcessedStyle[] {
   processedStyle = [];
-  const css = getCss(config.context!);
+  const css = createCss(config.context!);
   processCss(config, css);
   return processedStyle;
 }

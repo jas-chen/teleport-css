@@ -1,7 +1,7 @@
 import { ElementType, ComponentProps, ReactElement } from 'react';
 import { renderProcessedStyle } from './renderProcessedStyle';
 import { toStyles } from './toStyles';
-import type { ProcessedStyle, GetCss, Config } from './types';
+import type { ProcessedStyle, CreateCss, Config } from './types';
 
 const ws = /[\s]+/;
 const errorMsg =
@@ -11,28 +11,28 @@ export function styled<Component extends ElementType, Context>(
   config: Config<Context>,
   BaseComponent: Component & {
     $component?: Component;
-    $getCss?: GetCss<Context>;
+    $createCss?: CreateCss<Context>;
     $getStyles?: () => Readonly<ProcessedStyle[]>;
     $styleCache?: Readonly<ProcessedStyle[]>;
   },
-  getCss: GetCss<Context>,
+  createCss: CreateCss<Context>,
 ): (
   props: ComponentProps<Component> & {
-    css?: GetCss<Context>;
+    css?: CreateCss<Context>;
   },
 ) => ReactElement {
-  const { $component, $getCss } = BaseComponent;
+  const { $component, $createCss } = BaseComponent;
 
-  if ($component && $getCss) {
+  if ($component && $createCss) {
     return styled(config, $component, (context: Context) => [
-      $getCss(context),
-      getCss(context),
+      $createCss(context),
+      createCss(context),
     ]);
   }
 
   const StyledComponent = (
     props: ComponentProps<Component> & {
-      css?: GetCss<Context>;
+      css?: CreateCss<Context>;
     },
   ): ReactElement => {
     const { className, css, ...restProps } = props;
@@ -54,7 +54,7 @@ export function styled<Component extends ElementType, Context>(
     let styles = TypedStyledComponent.$styleCache;
 
     if (!styles) {
-      styles = toStyles(config, getCss);
+      styles = toStyles(config, createCss);
 
       if (typeof BaseComponent !== 'string') {
         const baseGetStyles = BaseComponent.$getStyles;
@@ -87,7 +87,7 @@ export function styled<Component extends ElementType, Context>(
   // We don't want to expose these properties
   Object.assign(StyledComponent, {
     $component: BaseComponent,
-    $getCss: getCss,
+    $createCss: createCss,
   });
 
   return StyledComponent;

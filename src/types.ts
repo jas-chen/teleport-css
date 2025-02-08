@@ -1,14 +1,12 @@
 import { CSSProperties, ReactElement } from 'react';
 
 export type CSSObject = CSSProperties & {
-  [Key: string]:
-    | CSSObject
-    | CSSObject[]
-    | string
-    | number
-    | boolean
-    | undefined;
+  [Key: string]: CssInput | string | number | boolean | undefined;
 };
+
+type CssObjectArray = (CSSObject | CssObjectArray)[];
+
+export type CssInput = CSSObject | CssObjectArray;
 
 export interface Style {
   parents?: string[];
@@ -80,7 +78,5 @@ export interface Config<Context> {
   context?: Context;
 }
 
-type CssObjectArray = (CSSObject | CssObjectArray)[];
-export type CssInput = CSSObject | CssObjectArray;
-export type GetCss<Context> = (context: Context) => CssInput;
-export type GetSingleCss<Context> = (context: Context) => CSSObject;
+export type CreateCss<Context> = (context: Context) => CssInput;
+export type CreateSingleCss<Context> = (context: Context) => CSSObject;

@@ -1,6 +1,6 @@
 import { ElementType } from 'react';
 import { styled } from './styled';
-import type { Config, GetCss } from './types';
+import type { Config, CreateCss } from './types';
 
 export function cloneAs<
   SourceComponent extends ElementType,
@@ -9,15 +9,15 @@ export function cloneAs<
 >(
   config: Config<Context>,
   sourceComponent: SourceComponent & {
-    $getCss?: GetCss<Context>;
+    $createCss?: CreateCss<Context>;
   },
   newComponent: NewComponent,
 ) {
-  const { $getCss } = sourceComponent;
+  const { $createCss } = sourceComponent;
 
-  if (!$getCss) {
+  if (!$createCss) {
     throw new Error('Component is not a styled component.');
   }
 
-  return styled(config, newComponent, $getCss);
+  return styled(config, newComponent, $createCss);
 }

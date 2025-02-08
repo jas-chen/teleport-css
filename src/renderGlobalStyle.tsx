@@ -1,11 +1,11 @@
 import { cssToString } from './cssToString';
-import type { Config, GetCss } from './types';
+import type { Config, CreateCss } from './types';
 
 export function renderGlobalStyle<Context>(
   config: Config<Context>,
-  getCss: GetCss<Context>,
+  createCss: CreateCss<Context>,
 ) {
-  const code = cssToString(getCss(config.context!));
+  const code = cssToString(createCss(config.context!));
 
   return (
     <>

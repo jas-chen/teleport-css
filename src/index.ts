@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import type { ConfigInput, Config, GetCss, GetSingleCss } from './types';
+import type { ConfigInput, Config, CreateCss, CreateSingleCss } from './types';
 import { styled as _styled } from './styled';
 import { cloneAs as _cloneAs } from './cloneAs';
 import { renderGlobalStyle as _renderGlobalStyle } from './renderGlobalStyle';
@@ -30,17 +30,17 @@ export function create<Context>(config: ConfigInput<Context>) {
 
   const styled = <Component extends ElementType>(
     component: Component,
-    getCss: GetCss<Context>,
+    createCss: CreateCss<Context>,
   ) => {
-    return _styled(internalConfig, component, getCss);
+    return _styled(internalConfig, component, createCss);
   };
 
-  const keyframes = (getCss: GetSingleCss<Context>) => {
-    return _keyframes(internalConfig, getCss);
+  const keyframes = (createCss: CreateSingleCss<Context>) => {
+    return _keyframes(internalConfig, createCss);
   };
 
-  const counterStyle = (getCss: GetSingleCss<Context>) => {
-    return _counterStyle(internalConfig, getCss);
+  const counterStyle = (createCss: CreateSingleCss<Context>) => {
+    return _counterStyle(internalConfig, createCss);
   };
 
   const cloneAs = <
@@ -48,15 +48,15 @@ export function create<Context>(config: ConfigInput<Context>) {
     NewComponent extends ElementType,
   >(
     sourceComponent: SourceComponent & {
-      $getCss?: GetCss<Context>;
+      $createCss?: CreateCss<Context>;
     },
     newComponent: NewComponent,
   ) => {
     return _cloneAs(internalConfig, sourceComponent, newComponent);
   };
 
-  const renderGlobalStyle = (getCss: GetSingleCss<Context>) => {
-    return _renderGlobalStyle(internalConfig, getCss);
+  const renderGlobalStyle = (createCss: CreateSingleCss<Context>) => {
+    return _renderGlobalStyle(internalConfig, createCss);
   };
 
   return {
