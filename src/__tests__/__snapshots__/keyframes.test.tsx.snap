@@ -12,9 +12,9 @@ exports[`can define animation 1`] = `
     }
   }
 </style>
-<style data-precedence="1" data-href="x-2atrobig-1">
-  .x-2atrobig-1 {
+<style data-precedence="1" data-href="x-2atrobig1">
+  .x-2atrobig1 {
     animation: x-2bn4sldq 1s ease infinite
   }
-</style><button class="x-2atrobig-1"></button>"
+</style><button class="x-2atrobig1"></button>"
 `;

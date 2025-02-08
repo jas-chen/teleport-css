@@ -23,7 +23,7 @@ export function renderProcessedStyle(
         precedence = (groupCount[group] || 0) + 1;
         groupCount[group] = precedence;
 
-        const finalHash = `${hash}-${precedence}`;
+        const finalHash = `${hash}${precedence}`;
         classNames.push(finalHash);
         const classSel = `.${finalHash}`;
         const finalCode = `${classSel}${code}`;
