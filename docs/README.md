@@ -107,7 +107,7 @@ const Button = styled('button', (context) => ({
 
 // Alternative syntax
 const AnotherButton = styled('button', (context) => ({
-  animationName: spin,
+  animationName: `${spin}`,
 }));
 ```
 
