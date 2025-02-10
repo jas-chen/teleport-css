@@ -1,6 +1,6 @@
 {
   "name": "teleport-css",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "A simple yet powerful CSS-in-JS library for React 19.",
   "packageManager": "pnpm@9.15.4",
   "type": "module",
