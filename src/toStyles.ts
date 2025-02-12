@@ -5,7 +5,7 @@ import type {
   CssInput,
   CreateCss,
   CreateSingleCss,
-  ProcessedStyle,
+  Style,
 } from './types';
 
 function memoize<V>(fn: (arg: string) => V): (arg: string) => V {
@@ -65,7 +65,7 @@ function createCode(
   return code;
 }
 
-let processedStyle: ProcessedStyle[] = [];
+let processedStyle: Style[] = [];
 
 function processCss<Context>(
   config: Config<Context>,
@@ -154,7 +154,7 @@ export function counterStyle<Context>(
 export function toStyles<Context>(
   config: Config<Context>,
   createCss: CreateCss<Context>,
-): ProcessedStyle[] {
+): Style[] {
   processedStyle = [];
   const css = createCss(config.context!);
   processCss(config, css);

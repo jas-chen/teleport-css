@@ -1,19 +1,14 @@
 import { ElementType, ComponentProps, ReactElement } from 'react';
-import { renderProcessedStyle } from './renderProcessedStyle';
-import { toStyles } from './toStyles';
-import type { ProcessedStyle, CreateCss, Config } from './types';
-
-const ws = /[\s]+/;
-const errorMsg =
-  'Please use the `css` prop instead of `className` to style a styled component.';
+import type { Style, CreateCss, Config } from './types';
+import { renderCss } from './renderCss';
 
 export function styled<Component extends ElementType, Context>(
   config: Config<Context>,
   BaseComponent: Component & {
     $component?: Component;
     $createCss?: CreateCss<Context>;
-    $getStyles?: () => Readonly<ProcessedStyle[]>;
-    $styleCache?: Readonly<ProcessedStyle[]>;
+    $getStyles?: () => Readonly<Style[]>;
+    $styleCache?: Readonly<Style[]>;
   },
   createCss: CreateCss<Context>,
 ): (
@@ -35,53 +30,15 @@ export function styled<Component extends ElementType, Context>(
       css?: CreateCss<Context>;
     },
   ): ReactElement => {
-    const { className, css, ...restProps } = props;
+    const { className, css: rawCss, ...restProps } = props;
+    // infer the type of css
+    const css = rawCss as CreateCss<Context> | undefined;
+    const render = renderCss(config, createCss, css, className);
 
-    if (
-      process.env.NODE_ENV !== 'production' &&
-      typeof className === 'string' &&
-      (className as string)
-        .split(ws)
-        .some((c) => c.startsWith(`${config.prefix}-`))
-    ) {
-      throw new Error(errorMsg);
-    }
-
-    const TypedStyledComponent = StyledComponent as typeof StyledComponent & {
-      $styleCache?: Readonly<ProcessedStyle[]>;
-    };
-
-    let styles = TypedStyledComponent.$styleCache;
-
-    if (!styles) {
-      styles = toStyles(config, createCss);
-
-      if (typeof BaseComponent !== 'string') {
-        const baseGetStyles = BaseComponent.$getStyles;
-        if (baseGetStyles) {
-          styles = [...baseGetStyles(), ...styles];
-        }
-      }
-
-      TypedStyledComponent.$styleCache = styles;
-    }
-
-    const [styleElement, styleClassName] = renderProcessedStyle(
-      css ? [...styles, ...toStyles(config, css)] : styles,
-    );
-
-    return (
-      <>
-        {styleElement}
-        {/* @ts-expect-error props type */}
-        <BaseComponent
-          className={
-            className ? `${styleClassName} ${className}` : styleClassName
-          }
-          {...restProps}
-        />
-      </>
-    );
+    return render((finalClassName) => (
+      /* @ts-expect-error props type */
+      <BaseComponent className={finalClassName} {...restProps} />
+    ));
   };
 
   // We don't want to expose these properties

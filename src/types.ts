@@ -9,12 +9,6 @@ type CssObjectArray = (CSSObject | CssObjectArray)[];
 export type CssInput = CSSObject | CssObjectArray;
 
 export interface Style {
-  parents?: string[];
-  name: string;
-  value: string | number;
-}
-
-export interface ProcessedStyle {
   group: string;
   hash: string;
   code: string;

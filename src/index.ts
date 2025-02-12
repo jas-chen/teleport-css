@@ -3,6 +3,7 @@ import type { ConfigInput, Config, CreateCss, CreateSingleCss } from './types';
 import { styled as _styled } from './styled';
 import { cloneAs as _cloneAs } from './cloneAs';
 import { renderGlobalStyle as _renderGlobalStyle } from './renderGlobalStyle';
+import { renderCss as _renderCss } from './renderCss';
 import {
   keyframes as _keyframes,
   counterStyle as _counterStyle,
@@ -59,6 +60,19 @@ export function create<Context>(config: ConfigInput<Context>) {
     return _renderGlobalStyle(internalConfig, createCss);
   };
 
+  const renderCss = (
+    createStaticCss: CreateCss<Context>,
+    createDynamicCss: CreateCss<Context> | undefined | null,
+    additionalClassName: string | undefined | null,
+  ) => {
+    return _renderCss(
+      internalConfig,
+      createStaticCss,
+      createDynamicCss,
+      additionalClassName,
+    );
+  };
+
   return {
     setConfig,
     getConfig,
@@ -67,5 +81,6 @@ export function create<Context>(config: ConfigInput<Context>) {
     keyframes,
     counterStyle,
     renderGlobalStyle,
+    renderCss,
   };
 }
