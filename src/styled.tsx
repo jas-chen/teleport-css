@@ -1,5 +1,5 @@
 import { ElementType, ComponentProps, ReactElement } from 'react';
-import type { Style, CreateCss, Config } from './types';
+import type { CreateCss, Config, CssProp } from './types';
 import { renderCss } from './renderCss';
 
 export function styled<Component extends ElementType, Context>(
@@ -7,13 +7,11 @@ export function styled<Component extends ElementType, Context>(
   BaseComponent: Component & {
     $component?: Component;
     $createCss?: CreateCss<Context>;
-    $getStyles?: () => Readonly<Style[]>;
-    $styleCache?: Readonly<Style[]>;
   },
   createCss: CreateCss<Context>,
 ): (
   props: ComponentProps<Component> & {
-    css?: CreateCss<Context>;
+    css?: CssProp<Context>;
   },
 ) => ReactElement {
   const { $component, $createCss } = BaseComponent;
@@ -27,12 +25,12 @@ export function styled<Component extends ElementType, Context>(
 
   const StyledComponent = (
     props: ComponentProps<Component> & {
-      css?: CreateCss<Context>;
+      css?: CssProp<Context>;
     },
   ): ReactElement => {
     const { className, css: rawCss, ...restProps } = props;
     // infer the type of css
-    const css = rawCss as CreateCss<Context> | undefined;
+    const css = rawCss as CssProp<Context>;
     const render = renderCss(config, createCss, css);
 
     return render(className, (finalClassName) => (

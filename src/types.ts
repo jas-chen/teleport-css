@@ -74,3 +74,4 @@ export interface Config<Context> {
 
 export type CreateCss<Context> = (context: Context) => CssInput;
 export type CreateSingleCss<Context> = (context: Context) => CSSObject;
+export type CssProp<Context> = CreateCss<Context> | undefined | null;

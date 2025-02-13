@@ -1,5 +1,11 @@
 import { ElementType } from 'react';
-import type { ConfigInput, Config, CreateCss, CreateSingleCss } from './types';
+import type {
+  ConfigInput,
+  Config,
+  CreateCss,
+  CreateSingleCss,
+  CssProp,
+} from './types';
 import { styled as _styled } from './styled';
 import { cloneAs as _cloneAs } from './cloneAs';
 import { renderGlobalStyle as _renderGlobalStyle } from './renderGlobalStyle';
@@ -62,7 +68,7 @@ export function create<Context>(config: ConfigInput<Context>) {
 
   const renderCss = (
     createStaticCss: CreateCss<Context>,
-    createDynamicCss: CreateCss<Context> | undefined | null,
+    createDynamicCss?: CssProp<Context>,
   ) => {
     return _renderCss(internalConfig, createStaticCss, createDynamicCss);
   };
