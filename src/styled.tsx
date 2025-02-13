@@ -33,9 +33,9 @@ export function styled<Component extends ElementType, Context>(
     const { className, css: rawCss, ...restProps } = props;
     // infer the type of css
     const css = rawCss as CreateCss<Context> | undefined;
-    const render = renderCss(config, createCss, css, className);
+    const render = renderCss(config, createCss, css);
 
-    return render((finalClassName) => (
+    return render(className, (finalClassName) => (
       /* @ts-expect-error props type */
       <BaseComponent className={finalClassName} {...restProps} />
     ));

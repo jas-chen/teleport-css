@@ -2,7 +2,10 @@ import { ReactElement, ReactNode } from 'react';
 import { Config, CreateCss, Style } from './types';
 import { toStyles } from './toStyles';
 
-type Renderer = (render: (className: string) => ReactNode) => ReactElement;
+type Renderer = (
+  additionalClassName: string | undefined | null,
+  render: (className: string) => ReactNode,
+) => ReactElement;
 
 const ws = /[\s]+/;
 
@@ -31,21 +34,11 @@ export function renderCss<Context>(
     | (CreateCss<Context> & { $styleCache?: Readonly<Style[]> })
     | undefined
     | null,
-  additionalClassName: string | undefined | null,
 ): Renderer {
-  if (
-    process.env.NODE_ENV !== 'production' &&
-    additionalClassName
-      ?.split(ws)
-      .some((c) => c.startsWith(`${config.prefix}-`))
-  ) {
-    throw new Error(
-      'Styled components require the `css` prop for dynamic styling. The `className` prop could lead to unexpected styling behavior.',
-    );
-  }
-
   const { $rendererCache } = createStaticCss;
-  if ($rendererCache) {
+
+  // happy path
+  if ($rendererCache && !createDynamicCss) {
     return $rendererCache;
   }
 
@@ -89,11 +82,23 @@ export function renderCss<Context>(
   });
 
   const styleClassName = classNames.join(' ');
-  const className = additionalClassName
-    ? `${styleClassName} ${additionalClassName}`
-    : styleClassName;
 
-  const renderer = function (render: (className: string) => ReactNode) {
+  const renderer: Renderer = function (additionalClassName, render) {
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      additionalClassName
+        ?.split(ws)
+        .some((c) => c.startsWith(`${config.prefix}-`))
+    ) {
+      throw new Error(
+        'Styled components require the `css` prop for dynamic styling. The `className` prop could lead to unexpected styling behavior.',
+      );
+    }
+
+    const className = additionalClassName
+      ? `${styleClassName} ${additionalClassName}`
+      : styleClassName;
+
     return (
       <>
         {elements}
@@ -102,6 +107,9 @@ export function renderCss<Context>(
     );
   };
 
-  createStaticCss.$rendererCache = renderer;
+  if (!createDynamicCss) {
+    createStaticCss.$rendererCache = renderer;
+  }
+
   return renderer;
 }

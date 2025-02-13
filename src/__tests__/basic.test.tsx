@@ -100,7 +100,7 @@ test('CSS value fallback', () => {
   ).toMatchSnapshot();
 });
 
-test('style composition', () => {
+test('style composition using styled', () => {
   const Button = styled('button', () => ({
     color: 'red',
     background: '#fff',
@@ -130,6 +130,32 @@ test('style composition', () => {
               }
             }
           />
+        </div>,
+      ),
+    ),
+  ).toMatchSnapshot();
+});
+
+test('style composition using css', () => {
+  const Button = styled('button', () => ({
+    background: 'white',
+  }));
+
+  expect(
+    pretty(
+      renderToStaticMarkup(
+        <div>
+          <Button
+            css={() => ({
+              background: 'red',
+            })}
+          />
+          <Button
+            css={() => ({
+              background: 'blue',
+            })}
+          />
+          <Button />
         </div>,
       ),
     ),

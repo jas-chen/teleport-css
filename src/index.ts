@@ -63,14 +63,8 @@ export function create<Context>(config: ConfigInput<Context>) {
   const renderCss = (
     createStaticCss: CreateCss<Context>,
     createDynamicCss: CreateCss<Context> | undefined | null,
-    additionalClassName: string | undefined | null,
   ) => {
-    return _renderCss(
-      internalConfig,
-      createStaticCss,
-      createDynamicCss,
-      additionalClassName,
-    );
+    return _renderCss(internalConfig, createStaticCss, createDynamicCss);
   };
 
   return {
