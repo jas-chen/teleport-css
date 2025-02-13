@@ -12,6 +12,7 @@ export interface Style {
   group: string;
   hash: string;
   code: string;
+  valueLength?: number;
 }
 
 export type RenderResult = [style: ReactElement, className: string];

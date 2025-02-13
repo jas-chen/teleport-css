@@ -47,16 +47,15 @@ const PrimaryButton = styled(Button, (context) => ({
 
 ### Fallback Styles
 
-You can return an array of styles, which is helpful for defining fallbacks for browsers that don't support specific features.
+Define fallbacks for browsers that don't support specific features.
 
 ```tsx
 import { styled } from 'path/to/css';
 
-const Text = styled('span', (context) => [
-  // Fallback for browsers without oklch support
-  { color: '#ffb0e9' },
-  { color: 'oklch(95%, 0.2, 0)' },
-]);
+const Text = styled('span', (context) => ({
+  // Fallback to `#ffb0e9` for browsers without oklch support
+  color: '#ffb0e9;color:oklch(95%, 0.2, 0)',
+}));
 ```
 
 ### Overriding Styles with `css`

@@ -62,7 +62,7 @@ function createCode(
     }
   }
   code += `${name}${isAtRule ? '' : ':'}${value}${endBrackets}`;
-  return code;
+  return { code, endBrackets };
 }
 
 let processedStyle: Style[] = [];
@@ -91,9 +91,14 @@ function processCss<Context>(
 
   Object.entries(css).forEach(([key, value]) => {
     if (isCssValue(value)) {
+      if (key === '$styleCache') {
+        return;
+      }
+
       const name = processStyleName(key);
       const isAtRule = name.startsWith('@');
-      const code = createCode(parents, name, String(value));
+      const valueAsString = String(value);
+      const { code, endBrackets } = createCode(parents, name, valueAsString);
 
       processedStyle.push({
         group: isAtRule
@@ -104,6 +109,7 @@ function processCss<Context>(
             ],
         hash: `${config.prefix}-${config.hashFn(code)}`,
         code: isAtRule ? code : `{${code}}`,
+        valueLength: valueAsString.length + endBrackets.length,
       });
     } else if (Array.isArray(value)) {
       value.forEach((v) =>
@@ -130,7 +136,7 @@ export function createDefinition<Context>(
       processedStyle.push({
         group: '@',
         hash: hash,
-        code: createCode(undefined, name, body),
+        code: createCode(undefined, name, body).code,
       });
       return hash;
     },
@@ -154,7 +160,7 @@ export function counterStyle<Context>(
 export function toStyles<Context>(
   config: Config<Context>,
   createCss: CreateCss<Context> | CssInput,
-): Style[] {
+): Readonly<Style[]> {
   processedStyle = [];
   const css =
     typeof createCss === 'function' ? createCss(config.context!) : createCss;

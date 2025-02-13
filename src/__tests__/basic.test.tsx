@@ -13,7 +13,7 @@ const { styled } = create({
   hashFn,
 });
 
-test('style deduplication', () => {
+test('simple', () => {
   const Button = styled('button', () => ({
     color: 'red',
     background: 'blue',
@@ -76,15 +76,12 @@ test('no footgun', () => {
 
 test('CSS value fallback', () => {
   const Text = styled('span', () => ({
-    color: 'color: rgba(0,0,0,0.9)',
+    color: 'rgba(0,0,0,0.9)',
   }));
 
   const TextWithFallback = styled('span', () => [
     {
-      color: 'black',
-    },
-    {
-      color: 'color: rgba(0,0,0,0.9)',
+      color: 'black;color:rgba(0,0,0,0.9)',
     },
   ]);
 

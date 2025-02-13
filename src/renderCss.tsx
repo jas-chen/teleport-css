@@ -15,18 +15,34 @@ function getStyles<Context>(
     | (CreateCss<Context> & { $styleCache?: Readonly<Style[]> })
     | (CssInput & { $styleCache?: Readonly<Style[]> }),
 ): Readonly<Style[]> {
-  const { $styleCache, ...rest } = createCss;
+  const { $styleCache } = createCss;
 
   if ($styleCache) {
     return $styleCache;
   }
 
-  const styles = toStyles(
-    config,
-    typeof createCss === 'function' ? createCss : rest,
-  );
+  const styles = toStyles(config, createCss);
   createCss.$styleCache = styles;
   return styles;
+}
+
+function deduplicateStyles(styles: Readonly<Style[]>): Readonly<Style[]> {
+  const map = new Map<string, Readonly<Style>>();
+
+  for (const style of styles) {
+    const key =
+      style.group === '@'
+        ? style.hash
+        : style.code.substring(0, style.code.length - 1 - style.valueLength!);
+
+    if (style.group !== '@') {
+      map.delete(key);
+    }
+
+    map.set(key, style);
+  }
+
+  return Array.from(map.values());
 }
 
 export function renderCss<Context>(
@@ -52,9 +68,11 @@ export function renderCss<Context>(
   const classNames: string[] = [];
 
   const staticStyles = getStyles(config, createStaticCss);
-  const styles = createDynamicCss
-    ? staticStyles.concat(getStyles(config, createDynamicCss))
-    : staticStyles;
+  const styles = deduplicateStyles(
+    createDynamicCss
+      ? staticStyles.concat(getStyles(config, createDynamicCss))
+      : staticStyles,
+  );
 
   const elements = styles.map((style) => {
     const { hash, group, code } = style;

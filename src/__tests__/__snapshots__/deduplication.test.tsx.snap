@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`deduplication 1`] = `
+"<style data-precedence="0" data-href="x-2bn4sldq">
+  @keyframes x-2bn4sldq {
+    from {
+      transform: rotate(0deg)
+    }
+
+    to {
+      transform: rotate(360deg)
+    }
+  }
+</style>
+<style data-precedence="1" data-href="x-gnqqa0i01">
+  .x-gnqqa0i01 {
+    animation-name: x-2bn4sldq
+  }
+</style>
+<style data-precedence="2" data-href="x-2atrobig2">
+  .x-2atrobig2 {
+    animation: x-2bn4sldq 1s ease infinite
+  }
+</style><button class="x-gnqqa0i01 x-2atrobig2"></button>"
+`;
