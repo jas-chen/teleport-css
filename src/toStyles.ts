@@ -153,10 +153,11 @@ export function counterStyle<Context>(
 
 export function toStyles<Context>(
   config: Config<Context>,
-  createCss: CreateCss<Context>,
+  createCss: CreateCss<Context> | CssInput,
 ): Style[] {
   processedStyle = [];
-  const css = createCss(config.context!);
+  const css =
+    typeof createCss === 'function' ? createCss(config.context!) : createCss;
   processCss(config, css);
   return processedStyle;
 }

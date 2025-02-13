@@ -136,7 +136,7 @@ test('style composition using styled', () => {
   ).toMatchSnapshot();
 });
 
-test('style composition using css', () => {
+test('style composition using css - functions', () => {
   const Button = styled('button', () => ({
     background: 'white',
   }));
@@ -154,6 +154,34 @@ test('style composition using css', () => {
             css={() => ({
               background: 'blue',
             })}
+          />
+          <Button />
+        </div>,
+      ),
+    ),
+  ).toMatchSnapshot();
+});
+
+test('style composition using css - objects', () => {
+  const Button = styled('button', () => ({
+    background: 'white',
+  }));
+
+  expect(
+    pretty(
+      renderToStaticMarkup(
+        <div>
+          <Button
+            css={{
+              background: 'red',
+            }}
+          />
+          <Button
+            css={[
+              {
+                background: 'blue',
+              },
+            ]}
           />
           <Button />
         </div>,

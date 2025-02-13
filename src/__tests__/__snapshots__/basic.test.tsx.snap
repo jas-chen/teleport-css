@@ -66,6 +66,44 @@ exports[`style composition 1`] = `
 <div><button class="x-157mpepm1 x-mqt2cko51"></button><button class="x-157mpepm1 x-mqt2cko51 x-39u6vegt2"></button></div>"
 `;
 
+exports[`style composition using css - functions 1`] = `
+"<style data-precedence="1" data-href="x-3feaa9u71">
+  .x-3feaa9u71 {
+    background: white
+  }
+</style>
+<style data-precedence="2" data-href="x-17g3hl842 x-39u6vegt2">
+  .x-17g3hl842 {
+    background: red
+  }
+
+  .x-39u6vegt2 {
+    background: blue
+  }
+</style>
+<div><button class="x-3feaa9u71 x-17g3hl842"></button><button class="x-3feaa9u71 x-39u6vegt2"></button><button class="x-3feaa9u71"></button></div>"
+`;
+
+exports[`style composition using css - objects 1`] = `
+"<style data-precedence="1" data-href="x-3feaa9u71">
+  .x-3feaa9u71 {
+    background: white
+  }
+</style>
+<style data-precedence="2" data-href="x-17g3hl842 x-1jxy8fr22">
+  .x-17g3hl842 {
+    background: red
+  }
+
+  .x-1jxy8fr22 {
+    0 {
+      background: blue
+    }
+  }
+</style>
+<div><button class="x-3feaa9u71 x-17g3hl842"></button><button class="x-3feaa9u71 x-1jxy8fr22"></button><button class="x-3feaa9u71"></button></div>"
+`;
+
 exports[`style composition using css 1`] = `
 "<style data-precedence="1" data-href="x-3feaa9u71">
   .x-3feaa9u71 {

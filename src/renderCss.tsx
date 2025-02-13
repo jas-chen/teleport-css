@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { Config, CreateCss, Style } from './types';
+import { Config, CreateCss, CssInput, Style } from './types';
 import { toStyles } from './toStyles';
 
 type Renderer = (
@@ -11,15 +11,20 @@ const ws = /[\s]+/;
 
 function getStyles<Context>(
   config: Config<Context>,
-  createCss: CreateCss<Context> & { $styleCache?: Readonly<Style[]> },
+  createCss:
+    | (CreateCss<Context> & { $styleCache?: Readonly<Style[]> })
+    | (CssInput & { $styleCache?: Readonly<Style[]> }),
 ): Readonly<Style[]> {
-  const { $styleCache } = createCss;
+  const { $styleCache, ...rest } = createCss;
 
   if ($styleCache) {
     return $styleCache;
   }
 
-  const styles = toStyles(config, createCss);
+  const styles = toStyles(
+    config,
+    typeof createCss === 'function' ? createCss : rest,
+  );
   createCss.$styleCache = styles;
   return styles;
 }
@@ -32,6 +37,7 @@ export function renderCss<Context>(
   },
   createDynamicCss:
     | (CreateCss<Context> & { $styleCache?: Readonly<Style[]> })
+    | CssInput
     | undefined
     | null,
 ): Renderer {
