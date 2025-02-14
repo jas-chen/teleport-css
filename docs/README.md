@@ -1,5 +1,19 @@
 # Documentation
 
+## Table of Contents
+- [Setup](#setup)
+- [`styled`](#styled)
+  - [Basic Example](#basic-example)
+  - [Fallback Styles](#fallback-styles)
+  - [Overriding Styles with `css`](#overriding-styles-with-css)
+- [`cloneAs`](#cloneas)
+- [`keyframes`](#keyframes)
+- [`counterStyle`](#counterstyle)
+- [`setConfig`](#setconfig)
+- [`getConfig`](#getconfig)
+- [`renderGlobalStyle`](#renderglobalstyle)
+- [`renderCss`](#rendercss)
+
 ## Setup
 
 First, create a file named `css.ts` in a convenient location within your project.
@@ -23,6 +37,11 @@ const {
   renderCss,
 } = create({
   hashFn,
+  // Optional prefix for class names and variables (default: 'x')
+  // prefix?: string;
+
+  // Optional context for creating CSS objects
+  // context?: Context;
 });
 
 export {
@@ -162,7 +181,6 @@ Retrieve the current configuration using the `getConfig` function.
 ```ts
 import { getConfig } from 'path/to/css';
 
-
 function Button(props: React.ComponentProps<'button'>) {
   return (
     <button className={`${getConfig().prefix}-Button`} {...props} />
@@ -194,20 +212,3 @@ function App() {
 ## `renderCss`
 
 Low level API to create styles. Please refer to [src/styled.tsx](../src/styled.tsx) for the usage.
-
-## Configuration Object
-
-The `Config` interface defines the options you can provide when setting up the library.
-
-```ts
-interface Config<Context> {
-  // Function to hash class names or other variables
-  hashFn: (value: string) => string;
-
-  // Optional prefix for class names and variables (default: 'x')
-  prefix?: string;
-
-  // Optional context for creating CSS objects
-  context?: Context;
-}
-```
