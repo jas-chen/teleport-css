@@ -13,12 +13,27 @@ function hashFn(value: string) {
   return fnv1a(value, { size: 64 }).toString(36).slice(0, 8);
 }
 
-const { setConfig, getConfig, styled, cloneAs, keyframes, counterStyle } =
-  create({
-    hashFn,
-  });
+const {
+  setConfig,
+  getConfig,
+  styled,
+  cloneAs,
+  keyframes,
+  counterStyle,
+  renderCss,
+} = create({
+  hashFn,
+});
 
-export { setConfig, getConfig, styled, cloneAs, keyframes, counterStyle };
+export {
+  setConfig,
+  getConfig,
+  styled,
+  cloneAs,
+  keyframes,
+  counterStyle,
+  renderCss,
+};
 ```
 
 ## `styled`
@@ -175,6 +190,10 @@ function App() {
   return <>{globalStyle}</>;
 }
 ```
+
+## `renderCss`
+
+Low level API to create styles. Please refer to [src/styled.tsx](../src/styled.tsx) for the usage.
 
 ## Configuration Object
 
