@@ -91,10 +91,6 @@ function processCss<Context>(
 
   Object.entries(css).forEach(([key, value]) => {
     if (isCssValue(value)) {
-      if (key === '$styleCache') {
-        return;
-      }
-
       const name = processStyleName(key);
       const isAtRule = name.startsWith('@');
       const valueAsString = String(value);

@@ -1,4 +1,4 @@
-import { ElementType, ComponentProps, ReactElement } from 'react';
+import { ElementType, ComponentProps, ReactElement, useMemo } from 'react';
 import type { CreateCss, Config, CssProp } from './types';
 import { renderCss } from './renderCss';
 
@@ -29,9 +29,9 @@ export function styled<Component extends ElementType, Context>(
     },
   ): ReactElement => {
     const { className, css: rawCss, ...restProps } = props;
-    // infer the type of css
+    // specify the type of css
     const css = rawCss as CssProp<Context>;
-    const render = renderCss(config, createCss, css);
+    const render = useMemo(() => renderCss(config, createCss, css), [css]);
 
     return render(className, (finalClassName) => (
       /* @ts-expect-error props type */

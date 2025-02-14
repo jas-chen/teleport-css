@@ -13,16 +13,20 @@ function getStyles<Context>(
   config: Config<Context>,
   createCss:
     | (CreateCss<Context> & { $styleCache?: Readonly<Style[]> })
-    | (CssInput & { $styleCache?: Readonly<Style[]> }),
+    | CssInput,
 ): Readonly<Style[]> {
-  const { $styleCache } = createCss;
+  const isFunction = typeof createCss === 'function';
 
-  if ($styleCache) {
-    return $styleCache;
+  if (isFunction && createCss.$styleCache) {
+    return createCss.$styleCache;
   }
 
   const styles = toStyles(config, createCss);
-  createCss.$styleCache = styles;
+
+  if (isFunction) {
+    createCss.$styleCache = styles;
+  }
+
   return styles;
 }
 
