@@ -135,11 +135,13 @@ const spin = keyframes((context) => ({
 }));
 
 const Button = styled('button', (context) => ({
+  // It must be converted to a string inside the function.
   animation: `${spin} 1s ease infinite`,
 }));
 
 // Alternative syntax
 const AnotherButton = styled('button', (context) => ({
+  // It must be converted to a string inside the function.
   animationName: `${spin}`,
 }));
 ```
@@ -158,13 +160,16 @@ const thumbs = counterStyle((context) => ({
 }));
 
 const List = styled('ul', (context) => ({
-  listStyle: thumbs,
+  // It must be converted to a string inside the function.
+  listStyle: `${thumbs}`,
 }));
 ```
 
 ## `setConfig`
 
 Use the `setConfig` function to update the configuration dynamically. Ensure this function is called **before rendering components** for the changes to take effect.
+
+> The config object is **not** passed through [React Context](https://react.dev/learn/passing-data-deeply-with-context) because React Context is not supported in Server Components; instead, it is provided as a singleton.
 
 ```ts
 import { setConfig } from 'path/to/css';
