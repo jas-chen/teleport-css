@@ -1,0 +1,93 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CSS in layers should not be atomic 1`] = `
+"<style data-precedence="1" data-href="x-4tcsx9ze1 x-3eivjhwl1">
+  .x-4tcsx9ze1 {
+    @layer utilities {
+      color: red
+    }
+  }
+
+  .x-3eivjhwl1 {
+    @layer component {
+      opacity: 1;
+      position: relative;
+
+      &:hover {
+        color: blue;
+        opacity: 0.5
+      }
+    }
+  }
+</style><button class="x-4tcsx9ze1 x-3eivjhwl1"></button>"
+`;
+
+exports[`CSS layers composition - 1 1`] = `
+"<style data-precedence="1" data-href="x-2dj17gws1 x-2c1ksewg1">
+  .x-2dj17gws1 {
+    @layer component {
+      opacity: 1;
+      position: relative
+    }
+  }
+
+  .x-2c1ksewg1 {
+    @layer component {
+      opacity: 0.5;
+      position: static
+    }
+  }
+</style>
+<style data-precedence="2" data-href="x-2dj17gws2">
+  .x-2dj17gws2 {
+    @layer component {
+      opacity: 1;
+      position: relative
+    }
+  }
+</style>
+<div><button class="x-2dj17gws1"></button><button class="x-2c1ksewg1 x-2dj17gws2"></button></div>"
+`;
+
+exports[`CSS layers composition - 2 1`] = `
+"<style data-precedence="1" data-href="x-2fpp4j2h1 x-2c1ksewg1">
+  .x-2fpp4j2h1 {
+    @layer component.test {
+      opacity: 1;
+      position: relative
+    }
+  }
+
+  .x-2c1ksewg1 {
+    @layer component {
+      opacity: 0.5;
+      position: static
+    }
+  }
+</style>
+<style data-precedence="2" data-href="x-2fpp4j2h2">
+  .x-2fpp4j2h2 {
+    @layer component.test {
+      opacity: 1;
+      position: relative
+    }
+  }
+</style>
+<div><button class="x-2fpp4j2h1"></button><button class="x-2c1ksewg1 x-2fpp4j2h2"></button></div>"
+`;
+
+exports[`can set default layer 1`] = `
+"<style data-precedence="1" data-href="x-4tcsx9ze1 x-1fwwk7jh1">
+  .x-4tcsx9ze1 {
+    @layer utilities {
+      color: red
+    }
+  }
+
+  .x-1fwwk7jh1 {
+    @layer utilities {
+      background: blue
+    }
+  }
+</style><button class="x-4tcsx9ze1 x-1fwwk7jh1"></button>"
+`;

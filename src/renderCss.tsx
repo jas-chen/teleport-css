@@ -35,9 +35,9 @@ function deduplicateStyles(styles: Readonly<Style[]>): Readonly<Style[]> {
 
   for (const style of styles) {
     const key =
-      style.group === '@'
+      style.group === '@' || style.valueLength === undefined
         ? style.hash
-        : style.code.substring(0, style.code.length - 1 - style.valueLength!);
+        : style.code.substring(0, style.code.length - 1 - style.valueLength);
 
     if (style.group !== '@') {
       map.delete(key);

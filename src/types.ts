@@ -45,6 +45,13 @@ export interface ConfigInput<Context> {
    * @type {Context}
    */
   context?: Context;
+
+  /**
+   * The default cascade layer name
+   *
+   * @type {string}
+   */
+  defaultLayer?: string;
 }
 
 // Ensure prefix exists
@@ -71,6 +78,13 @@ export interface Config<Context> {
    * @type {Context}
    */
   context?: Context;
+
+  /**
+   * The default cascade layer name
+   *
+   * @type {string}
+   */
+  defaultLayer?: string;
 }
 
 export type CreateCss<Context> = (context: Context) => CssInput;

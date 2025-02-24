@@ -1,8 +1,5 @@
-export function isCssValue(value: unknown) {
+export function isCssValue(value: unknown): value is string | number {
   return (
-    typeof value === 'string' ||
-    (typeof value === 'number' && !isNaN(value)) ||
-    (Object.hasOwn(value as object, 'toString') &&
-      typeof (value as object).toString === 'function')
+    typeof value === 'string' || (typeof value === 'number' && !isNaN(value))
   );
 }

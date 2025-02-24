@@ -42,6 +42,9 @@ const {
 
   // Optional context for creating CSS objects
   // context?: Context;
+
+  // Optional default cascade layer name
+  // defaultLayer?: string;
 });
 
 export {
@@ -217,3 +220,64 @@ function App() {
 ## `renderCss`
 
 Low level API to create styles. Please refer to [src/styled.tsx](../src/styled.tsx) for the usage.
+
+
+## Cascade layers
+
+### CSS within cascade layers will not be converted to atomic CSS.
+
+> NOTE: This behavior does not require `defaultLayer` to be configured.
+
+```tsx
+const { styled } = create({
+  hashFn,
+});
+
+const Button = styled('button', () => ({
+  '@layer component': {
+    opacity: 1,
+    position: 'relative',
+  },
+}));
+
+/** Output
+
+.x-2dj17gws1 {
+  @layer component {
+    opacity: 1;
+    position: relative
+  }
+}
+
+*/
+```
+
+### You can set the default layer name using the `defaultLayer` setting.
+
+```tsx
+const { styled } = create({
+  hashFn,
+  defaultLayer: 'utilities',
+});
+
+const Button = styled('button', () => ({
+  color: 'red',
+  background: 'blue',
+}));
+
+/** Output
+
+.x-4tcsx9ze1 {
+  @layer utilities {
+    color: red
+  }
+}
+
+.x-1fwwk7jh1 {
+  @layer utilities {
+    background: blue
+  }
+}
+
+*/
+```

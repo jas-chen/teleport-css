@@ -67,6 +67,10 @@ function createCode(
 
 let processedStyle: Style[] = [];
 
+const nestableAtRules = /^@(media|supports|layer|scope|container)\s/;
+const cssLayer = /^@layer\s/;
+const layerLength = '@layer '.length;
+
 function processCss<Context>(
   config: Config<Context>,
   css: CssInput,
@@ -89,29 +93,56 @@ function processCss<Context>(
     return;
   }
 
+  const { defaultLayer } = config;
+
   Object.entries(css).forEach(([key, value]) => {
-    if (isCssValue(value)) {
-      const name = processStyleName(key);
-      const isAtRule = name.startsWith('@');
-      const valueAsString = String(value);
-      const { code, endBrackets } = createCode(parents, name, valueAsString);
+    if (cssLayer.test(key)) {
+      const i = key.indexOf('.');
+      const layerName =
+        i === -1
+          ? key.substring(layerLength)
+          : key.substring(layerLength, key.indexOf('.'));
+
+      const code = cssToString({ [key]: value });
 
       processedStyle.push({
-        group: isAtRule
+        group: `#${layerName}`,
+        hash: `${config.prefix}-${config.hashFn(code)}`,
+        code: `{${code}}`,
+      });
+    } else if (isCssValue(value)) {
+      const name = processStyleName(key);
+      const isUnNestableAtRule = name[0] === '@' && !nestableAtRules.test(name);
+      const valueAsString = String(value);
+
+      let finalParents = parents;
+      if (defaultLayer) {
+        const wrapper = `@layer ${defaultLayer}`;
+        if (finalParents) {
+          finalParents = [wrapper, ...finalParents];
+        } else {
+          finalParents = [wrapper];
+        }
+      }
+
+      const { code, endBrackets } = createCode(
+        finalParents,
+        name,
+        valueAsString,
+      );
+
+      processedStyle.push({
+        group: isUnNestableAtRule
           ? '@'
           : name.split('-')[
               // handle browser prefix
               name.startsWith('-') ? 2 : 0
             ],
         hash: `${config.prefix}-${config.hashFn(code)}`,
-        code: isAtRule ? code : `{${code}}`,
+        code: isUnNestableAtRule ? code : `{${code}}`,
         valueLength: valueAsString.length + endBrackets.length,
       });
-    } else if (Array.isArray(value)) {
-      value.forEach((v) =>
-        processCss(config, v, parents ? [...parents, key] : [key]),
-      );
-    } else if (isPlainObject(value)) {
+    } else if (value && typeof value !== 'boolean') {
       processCss(config, value, parents ? [...parents, key] : [key]);
     }
   });
