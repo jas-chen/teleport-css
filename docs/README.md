@@ -1,6 +1,7 @@
 # Documentation
 
 ## Table of Contents
+
 - [Setup](#setup)
 - [`styled`](#styled)
   - [Basic Example](#basic-example)
@@ -220,7 +221,6 @@ function App() {
 ## `renderCss`
 
 Low level API to create styles. Please refer to [src/styled.tsx](../src/styled.tsx) for the usage.
-
 
 ## Cascade layers
 
