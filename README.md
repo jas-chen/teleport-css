@@ -11,7 +11,7 @@ A simple yet powerful CSS-in-JS library for React 19.
 - **Streaming Support**: Compatible with [React's streaming rendering](https://react.dev/reference/react-dom/server/renderToPipeableStream).
 - **Atomic CSS, Minus the Pitfalls**: Achieve atomic CSS with ease, avoiding common issues \[[1](https://play.tailwindcss.com/9XhuiUFF6n)]\[[2](https://play.panda-css.com/269sbigMXM)].
 - **Optimized for Component Libraries**: Specifically designed to streamline the creation of reusable component libraries.
-- **Lightweight**: `2.3kB` minified and gzipped. [Check bundle size on Bundlephobia](https://bundlephobia.com/package/teleport-css).
+- **Lightweight**: `2.1kB` minified and gzipped. [Check bundle size on Bundlephobia](https://bundlephobia.com/package/teleport-css).
 
 ## Prerequisites
 
