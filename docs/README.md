@@ -14,7 +14,8 @@
 - [`getConfig`](#getconfig)
 - [`renderGlobalStyle`](#renderglobalstyle)
 - [`renderCss`](#rendercss)
-
+- [Cascade layers](#cascade-layers)
+  - [`defaultLayer`](#defaultlayer)
 ## Setup
 
 First, create a file named `css.ts` in a convenient location within your project.
@@ -224,7 +225,7 @@ Low level API to create styles. Please refer to [src/styled.tsx](../src/styled.t
 
 ## Cascade layers
 
-### CSS within cascade layers will not be converted to atomic CSS.
+CSS within cascade layers will not be converted to atomic CSS.
 
 > NOTE: This behavior does not require `defaultLayer` to be configured.
 
@@ -252,7 +253,9 @@ const Button = styled('button', () => ({
 */
 ```
 
-### You can set the default layer name using the `defaultLayer` setting.
+### `defaultLayer`
+
+You can set the default layer name using the `defaultLayer` setting.
 
 ```tsx
 const { styled } = create({
