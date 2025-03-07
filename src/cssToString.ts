@@ -8,14 +8,6 @@ export function cssToString(css: CssInput, isRoot: boolean = true): string {
   }
 
   if (!isPlainObject(css)) {
-    const errorMsg = `Expected a plain object, got ${typeof css}: ${css}.`;
-
-    if (process.env.NODE_ENV !== 'production') {
-      throw new Error(errorMsg);
-    } else {
-      console.error(errorMsg);
-    }
-
     return '';
   }
 

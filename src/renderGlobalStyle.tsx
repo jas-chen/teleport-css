@@ -7,6 +7,10 @@ export function renderGlobalStyle<Context>(
 ) {
   const code = cssToString(createCss(config.context!));
 
+  if (!code) {
+    return null;
+  }
+
   return (
     <>
       <style precedence="-1" href={config.hashFn(code)}>

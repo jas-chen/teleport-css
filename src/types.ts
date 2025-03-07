@@ -1,12 +1,27 @@
 import { CSSProperties, ReactElement } from 'react';
 
 export type CSSObject = CSSProperties & {
-  [Key: string]: CssInput | string | number | boolean | undefined;
+  [Key: string]: CssInput | string | number | boolean | undefined | null;
 };
 
-type CssObjectArray = (CSSObject | CssObjectArray)[];
+type CssObjectArray = (
+  | CSSObject
+  | CssObjectArray
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+)[];
 
-export type CssInput = CSSObject | CssObjectArray;
+export type CssInput =
+  | CSSObject
+  | CssObjectArray
+  | string
+  | number
+  | boolean
+  | undefined
+  | null;
 
 export interface Style {
   group: string;
@@ -88,5 +103,4 @@ export interface Config<Context> {
 }
 
 export type CreateCss<Context> = (context: Context) => CssInput;
-export type CreateSingleCss<Context> = (context: Context) => CSSObject;
 export type CssProp<Context> = CreateCss<Context> | CssInput | undefined | null;

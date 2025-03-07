@@ -1,12 +1,6 @@
 import { cssToString } from './cssToString';
 import { isCssValue } from './isCssValue';
-import type {
-  Config,
-  CssInput,
-  CreateCss,
-  CreateSingleCss,
-  Style,
-} from './types';
+import type { Config, CssInput, CreateCss, Style } from './types';
 
 function memoize<V>(fn: (arg: string) => V): (arg: string) => V {
   const cache: Record<string, V> = Object.create(null);
@@ -82,14 +76,6 @@ function processCss<Context>(
   }
 
   if (!isPlainObject(css)) {
-    const errorMsg = `Expected a plain object, got ${typeof css}: ${css}.`;
-
-    if (process.env.NODE_ENV !== 'production') {
-      throw new Error(errorMsg);
-    } else {
-      console.error(errorMsg);
-    }
-
     return;
   }
 
@@ -151,7 +137,7 @@ function processCss<Context>(
 export function createDefinition<Context>(
   config: Config<Context>,
   type: string,
-  createCss: CreateSingleCss<Context>,
+  createCss: CreateCss<Context>,
 ) {
   const css = createCss(config.context!);
   const body = `{${cssToString(css)}}`;
@@ -172,14 +158,14 @@ export function createDefinition<Context>(
 
 export function keyframes<Context>(
   config: Config<Context>,
-  createCss: CreateSingleCss<Context>,
+  createCss: CreateCss<Context>,
 ) {
   return createDefinition(config, '@keyframes', createCss);
 }
 
 export function counterStyle<Context>(
   config: Config<Context>,
-  createCss: CreateSingleCss<Context>,
+  createCss: CreateCss<Context>,
 ) {
   return createDefinition(config, '@counter-style', createCss);
 }

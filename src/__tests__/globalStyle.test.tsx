@@ -12,7 +12,7 @@ const { renderGlobalStyle } = create({
   hashFn,
 });
 
-test('can define animation', () => {
+test('can define animation with objects', () => {
   const globalStyle = renderGlobalStyle(() => ({
     ':root': {
       '--black': '#000',
@@ -23,6 +23,31 @@ test('can define animation', () => {
       },
     },
   }));
+
+  expect(pretty(renderToStaticMarkup(globalStyle))).toMatchSnapshot();
+});
+
+test('can define animation with arrays', () => {
+  const globalStyle = renderGlobalStyle(() => [
+    {
+      ':root': {
+        '--black': '#000',
+      },
+    },
+    {
+      body: {
+        main: {
+          color: 'var(--black)',
+        },
+      },
+    },
+  ]);
+
+  expect(pretty(renderToStaticMarkup(globalStyle))).toMatchSnapshot();
+});
+
+test('no css', () => {
+  const globalStyle = renderGlobalStyle(() => null);
 
   expect(pretty(renderToStaticMarkup(globalStyle))).toMatchSnapshot();
 });

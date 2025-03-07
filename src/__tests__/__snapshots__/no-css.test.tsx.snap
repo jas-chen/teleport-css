@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`No css - boolean 1`] = `"<button></button>"`;
+
+exports[`No css - boolean 2`] = `"<button></button>"`;
+
+exports[`No css - null 1`] = `"<button></button>"`;
+
+exports[`No css - null 2`] = `"<button></button>"`;
+
+exports[`No css - nullish 1`] = `"<button></button>"`;
+
+exports[`No css - nullish 2`] = `"<button></button>"`;
+
+exports[`No css - string 1`] = `"<button></button>"`;

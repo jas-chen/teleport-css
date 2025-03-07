@@ -4,7 +4,7 @@ import { toStyles } from './toStyles';
 
 type Renderer = (
   additionalClassName: string | undefined | null,
-  render: (className: string) => ReactNode,
+  render: (className?: string) => ReactNode,
 ) => ReactElement;
 
 const ws = /[\s]+/;
@@ -123,9 +123,13 @@ export function renderCss<Context>(
       );
     }
 
-    const className = additionalClassName
-      ? `${styleClassName} ${additionalClassName}`
-      : styleClassName;
+    let className: string | undefined = undefined;
+
+    if (additionalClassName && styleClassName) {
+      className = `${styleClassName} ${additionalClassName}`;
+    } else {
+      className = styleClassName || additionalClassName || undefined;
+    }
 
     return (
       <>
