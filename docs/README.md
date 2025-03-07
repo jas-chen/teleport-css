@@ -16,6 +16,7 @@
 - [`renderCss`](#rendercss)
 - [Cascade layers](#cascade-layers)
   - [`defaultLayer`](#defaultlayer)
+
 ## Setup
 
 First, create a file named `css.ts` in a convenient location within your project.
