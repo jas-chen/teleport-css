@@ -1,113 +1,113 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`CSS value fallback 1`] = `
-"<style data-precedence="1" data-href="x-1wya72fm1 x-2chz05kj1">
-  .x-1wya72fm1 {
+"<style data-precedence="1" data-href="x_1wya72fm1 x_2chz05kj1">
+  .x_1wya72fm1 {
     color: black;
     color: rgba(0, 0, 0, 0.9)
   }
 
-  .x-2chz05kj1 {
+  .x_2chz05kj1 {
     color: rgba(0, 0, 0, 0.9)
   }
 </style>
-<div><span class="x-1wya72fm1"></span><span class="x-2chz05kj1"></span></div>"
+<div><span class="x_1wya72fm1"></span><span class="x_2chz05kj1"></span></div>"
 `;
 
 exports[`no footgun 1`] = `
-"<style data-precedence="1" data-href="x-9p6p2vms1 x-16x8ijtr1">
-  .x-9p6p2vms1 {
+"<style data-precedence="1" data-href="x_9p6p2vms1 x_16x8ijtr1">
+  .x_9p6p2vms1 {
     &:first-child:after {
       content: "First"
     }
   }
 
-  .x-16x8ijtr1 {
+  .x_16x8ijtr1 {
     &:last-child:after {
       content: "Last"
     }
   }
 </style>
-<style data-precedence="2" data-href="x-16x8ijtr2 x-9p6p2vms2">
-  .x-16x8ijtr2 {
+<style data-precedence="2" data-href="x_16x8ijtr2 x_9p6p2vms2">
+  .x_16x8ijtr2 {
     &:last-child:after {
       content: "Last"
     }
   }
 
-  .x-9p6p2vms2 {
+  .x_9p6p2vms2 {
     &:first-child:after {
       content: "First"
     }
   }
 </style>
-<div><span class="x-9p6p2vms1 x-16x8ijtr2"></span><span class="x-16x8ijtr1 x-9p6p2vms2"></span></div>"
+<div><span class="x_9p6p2vms1 x_16x8ijtr2"></span><span class="x_16x8ijtr1 x_9p6p2vms2"></span></div>"
 `;
 
 exports[`simple 1`] = `
-"<style data-precedence="1" data-href="x-157mpepm1 x-39u6vegt1 x-38xvzlwd1">
-  .x-157mpepm1 {
+"<style data-precedence="1" data-href="x_157mpepm1 x_39u6vegt1 x_38xvzlwd1">
+  .x_157mpepm1 {
     color: red
   }
 
-  .x-39u6vegt1 {
+  .x_39u6vegt1 {
     background: blue
   }
 
-  .x-38xvzlwd1 {
+  .x_38xvzlwd1 {
     color: yellow
   }
 </style>
-<div><button class="x-157mpepm1 x-39u6vegt1"></button><a class="x-38xvzlwd1 x-39u6vegt1"></a></div>"
+<div><button class="x_157mpepm1 x_39u6vegt1"></button><a class="x_38xvzlwd1 x_39u6vegt1"></a></div>"
 `;
 
 exports[`style composition using css - functions 1`] = `
-"<style data-precedence="1" data-href="x-17g3hl841 x-39u6vegt1 x-3feaa9u71">
-  .x-17g3hl841 {
+"<style data-precedence="1" data-href="x_17g3hl841 x_39u6vegt1 x_3feaa9u71">
+  .x_17g3hl841 {
     background: red
   }
 
-  .x-39u6vegt1 {
+  .x_39u6vegt1 {
     background: blue
   }
 
-  .x-3feaa9u71 {
+  .x_3feaa9u71 {
     background: white
   }
 </style>
-<div><button class="x-17g3hl841"></button><button class="x-39u6vegt1"></button><button class="x-3feaa9u71"></button></div>"
+<div><button class="x_17g3hl841"></button><button class="x_39u6vegt1"></button><button class="x_3feaa9u71"></button></div>"
 `;
 
 exports[`style composition using css - objects 1`] = `
-"<style data-precedence="1" data-href="x-17g3hl841 x-39u6vegt1 x-3feaa9u71">
-  .x-17g3hl841 {
+"<style data-precedence="1" data-href="x_17g3hl841 x_39u6vegt1 x_3feaa9u71">
+  .x_17g3hl841 {
     background: red
   }
 
-  .x-39u6vegt1 {
+  .x_39u6vegt1 {
     background: blue
   }
 
-  .x-3feaa9u71 {
+  .x_3feaa9u71 {
     background: white
   }
 </style>
-<div><button class="x-17g3hl841"></button><button class="x-39u6vegt1"></button><button class="x-3feaa9u71"></button></div>"
+<div><button class="x_17g3hl841"></button><button class="x_39u6vegt1"></button><button class="x_3feaa9u71"></button></div>"
 `;
 
 exports[`style composition using styled 1`] = `
-"<style data-precedence="1" data-href="x-157mpepm1 x-mqt2cko51 x-39u6vegt1">
-  .x-157mpepm1 {
+"<style data-precedence="1" data-href="x_157mpepm1 x_mqt2cko51 x_39u6vegt1">
+  .x_157mpepm1 {
     color: red
   }
 
-  .x-mqt2cko51 {
+  .x_mqt2cko51 {
     background: #fff
   }
 
-  .x-39u6vegt1 {
+  .x_39u6vegt1 {
     background: blue
   }
 </style>
-<div><button class="x-157mpepm1 x-mqt2cko51"></button><button class="x-157mpepm1 x-39u6vegt1"></button></div>"
+<div><button class="x_157mpepm1 x_mqt2cko51"></button><button class="x_157mpepm1 x_39u6vegt1"></button></div>"
 `;

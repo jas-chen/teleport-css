@@ -11,6 +11,7 @@ function memoize<V>(fn: (arg: string) => V): (arg: string) => V {
   };
 }
 
+export const delimiter = '_';
 const hyphenateRegex = /[A-Z]|^ms/g;
 const isCustomProperty = (property: string) => property.charCodeAt(1) === 45;
 
@@ -93,7 +94,7 @@ function processCss<Context>(
 
       processedStyle.push({
         group: `#${layerName}`,
-        hash: `${config.prefix}-${config.hashFn(code)}`,
+        hash: `${config.prefix}${delimiter}${config.hashFn(code)}`,
         code: `{${code}}`,
       });
     } else if (isCssValue(value)) {
@@ -124,7 +125,7 @@ function processCss<Context>(
               // handle browser prefix
               name.startsWith('-') ? 2 : 0
             ],
-        hash: `${config.prefix}-${config.hashFn(code)}`,
+        hash: `${config.prefix}${delimiter}${config.hashFn(code)}`,
         code: isUnNestableAtRule ? code : `{${code}}`,
         valueLength: valueAsString.length + endBrackets.length,
       });
@@ -141,7 +142,7 @@ export function createDefinition<Context>(
 ) {
   const css = createCss(config.context!);
   const body = `{${cssToString(css)}}`;
-  const hash = `${config.prefix}-${config.hashFn(`${type} ${body}`)}`;
+  const hash = `${config.prefix}${delimiter}${config.hashFn(`${type} ${body}`)}`;
   const name = `${type} ${hash}`;
 
   return {

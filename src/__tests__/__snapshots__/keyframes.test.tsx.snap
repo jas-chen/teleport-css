@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`can define animation 1`] = `
-"<style data-precedence="0" data-href="x-2bn4sldq">
-  @keyframes x-2bn4sldq {
+"<style data-precedence="0" data-href="x_2bn4sldq">
+  @keyframes x_2bn4sldq {
     from {
       transform: rotate(0deg)
     }
@@ -12,9 +12,9 @@ exports[`can define animation 1`] = `
     }
   }
 </style>
-<style data-precedence="1" data-href="x-2atrobig1">
-  .x-2atrobig1 {
-    animation: x-2bn4sldq 1s ease infinite
+<style data-precedence="1" data-href="x_15ga9oq41">
+  .x_15ga9oq41 {
+    animation: x_2bn4sldq 1s ease infinite
   }
-</style><button class="x-2atrobig1"></button>"
+</style><button class="x_15ga9oq41"></button>"
 `;

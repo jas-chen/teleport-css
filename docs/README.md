@@ -243,7 +243,7 @@ const Button = styled('button', () => ({
 
 /** Output
 
-.x-2dj17gws1 {
+.x_2dj17gws1 {
   @layer component {
     opacity: 1;
     position: relative
@@ -270,13 +270,13 @@ const Button = styled('button', () => ({
 
 /** Output
 
-.x-4tcsx9ze1 {
+.x_4tcsx9ze1 {
   @layer utilities {
     color: red
   }
 }
 
-.x-1fwwk7jh1 {
+.x_1fwwk7jh1 {
   @layer utilities {
     background: blue
   }

@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react';
 import { Config, CreateCss, CssInput, Style } from './types';
-import { toStyles } from './toStyles';
+import { delimiter, toStyles } from './toStyles';
 
 type Renderer = (
   additionalClassName: string | undefined | null,
@@ -116,7 +116,7 @@ export function renderCss<Context>(
       process.env.NODE_ENV !== 'production' &&
       additionalClassName
         ?.split(ws)
-        .some((c) => c.startsWith(`${config.prefix}-`))
+        .some((c) => c.startsWith(`${config.prefix}${delimiter}`))
     ) {
       throw new Error(
         'Styled components require the `css` prop for dynamic styling. The `className` prop could lead to unexpected styling behavior.',
